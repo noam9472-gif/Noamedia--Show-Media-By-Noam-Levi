@@ -8,6 +8,8 @@ namespace Model
 {
     public class UserPremium : User
     {
-        
+        private string identityCard;
+
+        public string IdentityCard1 { get => identityCard; set => identityCard = value; }
     }
 }
