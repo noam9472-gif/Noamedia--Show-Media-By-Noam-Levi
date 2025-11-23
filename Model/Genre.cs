@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class Genre : Base_entity
+    public class Genre : BaseEntity
     {
-        private string identityCard;
         private string genreDescription;
 
-        public string IdentityCard { get => identityCard; set => identityCard = value; }
+        
         public string GenreDescription { get => genreDescription; set => genreDescription = value; }
     }
 }

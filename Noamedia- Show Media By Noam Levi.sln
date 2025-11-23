@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noamedia- Show Media By Noa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{C49B2680-F1A3-4C42-8A23-A383CD89EFD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{B4D8B9A3-8F43-4E0B-9A69-4BBA17BF6126}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{A2E873F1-97A0-441C-BADA-D36DD5C0DADD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{C49B2680-F1A3-4C42-8A23-A383CD89EFD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C49B2680-F1A3-4C42-8A23-A383CD89EFD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C49B2680-F1A3-4C42-8A23-A383CD89EFD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4D8B9A3-8F43-4E0B-9A69-4BBA17BF6126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4D8B9A3-8F43-4E0B-9A69-4BBA17BF6126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4D8B9A3-8F43-4E0B-9A69-4BBA17BF6126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4D8B9A3-8F43-4E0B-9A69-4BBA17BF6126}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2E873F1-97A0-441C-BADA-D36DD5C0DADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2E873F1-97A0-441C-BADA-D36DD5C0DADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2E873F1-97A0-441C-BADA-D36DD5C0DADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2E873F1-97A0-441C-BADA-D36DD5C0DADD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,6 +10,6 @@ namespace Model
     {
         private string identityCard;
 
-        public string IdentityCard1 { get => identityCard; set => identityCard = value; }
+        public string IdentityCard { get => identityCard; set => identityCard = value; }
     }
 }

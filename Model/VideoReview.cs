@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Noamedia__Show_Media_By_Noam_Levi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-  public class VideoReview
+  public class VideoReview : BaseEntity
     {
-        private string identityCard;
-        private string WhoUpdatedTheReview;
-        private string WhichVideoDidTheUserReview;
-        private DateTime ReviewDate;
-        private string ReviewDescription;
+        private User whoUpdatedTheReview;
+        private Video whichVideoDidTheUserReview;
+        private DateTime reviewDate;
+        private string reviewDescription;
 
-        public string IdentityCard { get => identityCard; set => identityCard = value; }
-        public string WhoUpdatedTheReview1 { get => WhoUpdatedTheReview; set => WhoUpdatedTheReview = value; }
-        public string WhichVideoDidTheUserReview1 { get => WhichVideoDidTheUserReview; set => WhichVideoDidTheUserReview = value; }
-        public DateTime ReviewDate1 { get => ReviewDate; set => ReviewDate = value; }
-        public string ReviewDescription1 { get => ReviewDescription; set => ReviewDescription = value; }
+        
+        public User WhoUpdatedTheReview { get => whoUpdatedTheReview; set => whoUpdatedTheReview = value; }
+        public Video WhichVideoDidTheUserReview { get => whichVideoDidTheUserReview; set => whichVideoDidTheUserReview = value; }
+        public DateTime ReviewDate { get => reviewDate; set => reviewDate = value; }
+        public string ReviewDescription { get => reviewDescription; set => reviewDescription = value; }
     }
 }

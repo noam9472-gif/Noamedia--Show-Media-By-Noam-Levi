@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Noamedia__Show_Media_By_Noam_Levi
 {
-     public class Base_entity
+     public class BaseEntity
     {
         private int id;
 
