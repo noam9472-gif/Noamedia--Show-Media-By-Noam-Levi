@@ -22,15 +22,15 @@ internal class Program
         //        Console.WriteLine($"Updated rows: {x}");
 
         //Console.WriteLine();
-        //User cInsert = new User();
-        //cInsert.UserName = "Noam Levi";
-        //cInsert.DateOfBirth = new DateTime(2008, 01, 20);
-        //cInsert.Mail = "noam9472@gmail.com";
-        //cInsert.Pass = "noamlevi2008";
-        //cInsert.Name = "NoamL20";
-        //cdb.Insert(cInsert);
-        //int y = cdb.SaveChanges();
-        //Console.WriteLine($"Inserted rows: {y}");
+        ////User cInsert = new User();
+        ////cInsert.UserName = "Noam Levi";
+        ////cInsert.DateOfBirth = new DateTime(2008, 01, 20);
+        ////cInsert.Mail = "noam9472@gmail.com";
+        ////cInsert.Pass = "noamlevi2008";
+        ////cInsert.Name = "NoamL20";
+        ////cdb.Insert(cInsert);
+        ////int y = cdb.SaveChanges();
+        ////Console.WriteLine($"Inserted rows: {y}");
 
         //User cDelete = cList.Last();
         //cdb.Delete(cDelete);

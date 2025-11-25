@@ -61,7 +61,7 @@ namespace ViewModel
             User u = entity as User;
             if (u != null)
             {
-                string sqlStr = $"Insert INTO [User] (UserName , DateOfBirth , Mail , Pass , Name , ID) VALUES (@UserName, @DateOfBirth , @Mail , @Pass , @Name , @ID)";
+                string sqlStr = $"Insert INTO [User] (UserName, DateOfBirth, Mail, Pass, Name) VALUES (@UserName, @DateOfBirth, @Mail, @Pass, @Name)";
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@UserName", u.UserName));

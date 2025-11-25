@@ -57,7 +57,7 @@ namespace ViewModel
             Genre g = entity as Genre;
             if (g != null)
             {
-                string sqlStr = $"Insert INTO Genre ( Genredescription ) VALUES ( @Genredescription)";
+                string sqlStr = $"Insert INTO Genre (Genredescription) VALUES (@Genredescription)";
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@Genredescription", g.GenreDescription));
