@@ -22,15 +22,15 @@ internal class Program
         //        Console.WriteLine($"Updated rows: {x}");
 
         //Console.WriteLine();
-        ////User cInsert = new User();
-        ////cInsert.UserName = "Noam Levi";
-        ////cInsert.DateOfBirth = new DateTime(2008, 01, 20);
-        ////cInsert.Mail = "noam9472@gmail.com";
-        ////cInsert.Pass = "noamlevi2008";
-        ////cInsert.Name = "NoamL20";
-        ////cdb.Insert(cInsert);
-        ////int y = cdb.SaveChanges();
-        ////Console.WriteLine($"Inserted rows: {y}");
+        //User cInsert = new User();
+        //cInsert.UserName = "Daniel Andreev";
+        //cInsert.DateOfBirth = new DateTime(2008, 04, 08);
+        //cInsert.Mail = "danielA@gmail.com";
+        //cInsert.Pass = "DA2008";
+        //cInsert.Name = "DAn12";
+        //cdb.Insert(cInsert);
+        //int y = cdb.SaveChanges();
+        //Console.WriteLine($"Inserted rows: {y}");
 
         //User cDelete = cList.Last();
         //cdb.Delete(cDelete);
@@ -129,10 +129,10 @@ internal class Program
 
 
         //        טבלת VideoReview
-        //        VideoReviewDB vrdb = new();
-        //        VideoReviewList vrList = vrdb.SelectAll();
-        //        foreach (VideoReview vr in vrList)
-        //            Console.WriteLine(vr.ReviewDescription);
+        //VideoReviewDB vrdb = new();
+        //VideoReviewList vrList = vrdb.SelectAll();
+        //foreach (VideoReview vr in vrList)
+        //    Console.WriteLine(vr.ReviewDescription);
 
         //        Console.WriteLine();
         //        VideoReview vrUpdate = vrList[0];
@@ -141,15 +141,15 @@ internal class Program
         //        int x = vrdb.SaveChanges();
         //        Console.WriteLine($"Updated rows: {x}");
 
-        //        Console.WriteLine();
-        //        VideoReview vrInsert = new VideoReview();
-        //        vrInsert.WhoUpdatedTheReview = cList[0];
-        //        vrInsert.WhichVideoDidTheUserReview = vList[0];
-        //        vrInsert.ReviewDate = new DateTime(2023, 12, 18);
-        //        vrInsert.ReviewDescription = "The video was terrible";
-        //        vrdb.Insert(vrInsert);
-        //        int y = vrdb.SaveChanges();
-        //        Console.WriteLine($"Inserted rows: {y}");
+        //Console.WriteLine();
+        //VideoReview vrInsert = new VideoReview();
+        //vrInsert.WhoUpdatedTheReview = cList[0];
+        //vrInsert.WhichVideoDidTheUserReview = vList[0];
+        //vrInsert.ReviewDate = new DateTime(2005, 11, 19);
+        //vrInsert.ReviewDescription = "The video was fine";
+        //vrdb.Insert(vrInsert);
+        //int y = vrdb.SaveChanges();
+        //Console.WriteLine($"Inserted rows: {y}");
 
         //VideoReview vrDelete = vrList.Last();
         //vrdb.Delete(vrDelete);
@@ -161,10 +161,10 @@ internal class Program
 
 
         //        טבלת AgeOfVideos
-        //        AgeOfVideosDB aovdb = new();
-        //        AgeOfVideoList aovList = aovdb.SelectAll();
-        //        foreach (AgeOfVideos aov in aovList)
-        //            Console.WriteLine(aov.Description);
+        //AgeOfVideosDB aovdb = new();
+        //AgeOfVideoList aovList = aovdb.SelectAll();
+        //foreach (AgeOfVideos aov in aovList)
+        //    Console.WriteLine(aov.Description);
 
         //        Console.WriteLine();
         //        AgeOfVideos aovUpdate = aovList[0];
@@ -173,12 +173,12 @@ internal class Program
         //        int x = aovdb.SaveChanges();
         //        Console.WriteLine($"Updated rows: {x}");
 
-        //        Console.WriteLine();
-        //        AgeOfVideos aovInsert = new AgeOfVideos();
-        //        aovInsert.Description = "all ages";
-        //        aovdb.Insert(aovInsert);
-        //        int y = aovdb.SaveChanges();
-        //        Console.WriteLine($"Inserted rows: {y}");
+        //Console.WriteLine();
+        //AgeOfVideos aovInsert = new AgeOfVideos();
+        //aovInsert.Description = "all ages";
+        //aovdb.Insert(aovInsert);
+        //int y = aovdb.SaveChanges();
+        //Console.WriteLine($"Inserted rows: {y}");
 
         //AgeOfVideos aovDelete = aovList.Last();
         //aovdb.Delete(aovDelete);
@@ -194,10 +194,10 @@ internal class Program
 
 
         //        טבלת UserPremium
-        //UserPremiumDB urdb = new();
-        //UserPremiumList urList = urdb.SelectAll();
-        //foreach (UserPremium ur in urList)
-        //    Console.WriteLine(ur.IdentityCard);
+        UserPremiumDB urdb = new();
+        UserPremiumList urList = urdb.SelectAll();
+        foreach (UserPremium ur in urList)
+            Console.WriteLine(ur.IdentityCard);
 
         //        Console.WriteLine();
         //        UserPremium urUpdate = urList[0];
@@ -206,12 +206,12 @@ internal class Program
         //        int x = urdb.SaveChanges();
         //        Console.WriteLine($"Updated rows: {x}");
 
-        //        Console.WriteLine();
-        //        UserPremium urInsert = new UserPremium();
-        //        urInsert.IdentityCard = "78544625";
-        //        urdb.Insert(urInsert);
-        //        int y = urdb.SaveChanges();
-        //        Console.WriteLine($"Inserted rows: {y}");
+        Console.WriteLine();
+        UserPremium urInsert = new UserPremium();
+        urInsert.IdentityCard = "12456798";
+        urdb.Insert(urInsert);
+        int y = urdb.SaveChanges();
+        Console.WriteLine($"Inserted rows: {y}");
 
         //UserPremium urDelete = urList.Last();
         //urdb.Delete(urDelete);

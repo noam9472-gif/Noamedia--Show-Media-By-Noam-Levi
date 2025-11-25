@@ -68,7 +68,7 @@ namespace ViewModel
             UserPremium ur = entity as UserPremium;
             if (ur != null)
             {
-                string sqlStr = $"Insert INTO UserPremium ( IdentityCard ) VALUES ( @IdentityCard)";
+                string sqlStr = $"Insert INTO  UserPremium (IdentityCard) VALUES (@IdentityCard)";
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@IdentityCard", ur.IdentityCard));
@@ -112,13 +112,13 @@ namespace ViewModel
         //}
         //protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
         //{
-        //    City c = entity as City;
-        //    if (c != null)
+        //    UserPremium ur = entity as UserPremium;
+        //    if (ur != null)
         //    {
-        //        string sqlStr = $"Insert INTO  CityTbl (CityName) VALUES (@cName)";
+        //        string sqlStr = $"Insert INTO  UserPremium (IdentityCard) VALUES (@IdentityCard)";
 
         //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.CityName));
+        //        command.Parameters.Add(new OleDbParameter("@IdentityCard", ur.IdentityCard));
         //    }
         //}
 
