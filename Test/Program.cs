@@ -8,11 +8,12 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        //        טבלת User
-        UserDB cdb = new();
-        UserList cList = cdb.SelectAll();
-        foreach (User c in cList)
-            Console.WriteLine(c.UserName);
+
+        #region User
+        //UserDB cdb = new();
+        //UserList cList = cdb.SelectAll();
+        //foreach (User c in cList)
+        //    Console.WriteLine(c.UserName);
 
         //        Console.WriteLine();
         //        User cUpdate = cList[0];
@@ -40,11 +41,9 @@ internal class Program
         //    Console.WriteLine(c);
         //Console.WriteLine();
 
+        #endregion
 
-
-
-
-        //        טבלת Genre
+        #region Genre
         //GenreDB gdb = new();
         //GenreList gList = gdb.SelectAll();
         //foreach (Genre g in gList)
@@ -73,18 +72,13 @@ internal class Program
         //Console.WriteLine();
 
 
+        #endregion
 
-
-
-
-
-
-
-        //        טבלת Video
-        VideoDB vdb = new();
-        VideoList vList = vdb.SelectAll();
-        foreach (Video v in vList)
-            Console.WriteLine(v.VideoName);
+        #region Video
+        //VideoDB vdb = new();
+        //VideoList vList = vdb.SelectAll();
+        //foreach (Video v in vList)
+        //    Console.WriteLine(v.VideoName);
 
         //        Console.WriteLine();
         //        Video vUpdate = vList[0];
@@ -123,16 +117,13 @@ internal class Program
         //    Console.WriteLine(v);
         //Console.WriteLine();
 
+        #endregion
 
-
-
-
-
-        //        טבלת VideoReview
-        VideoReviewDB vrdb = new();
-        VideoReviewList vrList = vrdb.SelectAll();
-        foreach (VideoReview vr in vrList)
-            Console.WriteLine(vr.ReviewDescription);
+        #region VideoReview
+        //VideoReviewDB vrdb = new();
+        //VideoReviewList vrList = vrdb.SelectAll();
+        //foreach (VideoReview vr in vrList)
+        //    Console.WriteLine(vr.ReviewDescription);
 
         //        Console.WriteLine();
         //        VideoReview vrUpdate = vrList[0];
@@ -141,15 +132,15 @@ internal class Program
         //        int x = vrdb.SaveChanges();
         //        Console.WriteLine($"Updated rows: {x}");
 
-        Console.WriteLine();
-        VideoReview vrInsert = new VideoReview();
-        vrInsert.WhoUpdatedTheReview = cList[0];
-        vrInsert.WhichVideoDidTheUserReview = vList[0];
-        vrInsert.ReviewDate = new DateTime(2023, 11, 19);
-        vrInsert.ReviewDescription = "The video wasnt good enough";
-        vrdb.Insert(vrInsert);
-        int y = vrdb.SaveChanges();
-        Console.WriteLine($"Inserted rows: {y}");
+        //Console.WriteLine();
+        //VideoReview vrInsert = new VideoReview();
+        //vrInsert.WhoUpdatedTheReview = cList[0];
+        //vrInsert.WhichVideoDidTheUserReview = vList[0];
+        //vrInsert.ReviewDate = new DateTime(2023, 11, 19);
+        //vrInsert.ReviewDescription = "The video wasnt good enough";
+        //vrdb.Insert(vrInsert);
+        //int y = vrdb.SaveChanges();
+        //Console.WriteLine($"Inserted rows: {y}");
 
         //VideoReview vrDelete = vrList.Last();
         //vrdb.Delete(vrDelete);
@@ -158,8 +149,9 @@ internal class Program
         //foreach (VideoReview vr in vrList)
         //    Console.WriteLine(vr);
         //Console.WriteLine();
+        #endregion
 
-
+        #region AgeOfVideos
         //        טבלת AgeOfVideos
         //AgeOfVideosDB aovdb = new();
         //AgeOfVideoList aovList = aovdb.SelectAll();
@@ -187,12 +179,9 @@ internal class Program
         //foreach (AgeOfVideos aov in aovList)
         //    Console.WriteLine(aov);
         //Console.WriteLine();
+        #endregion
 
-
-
-
-
-
+        #region UserPremium
         //        טבלת UserPremium
         //UserPremiumDB urdb = new();
         //UserPremiumList urList = urdb.SelectAll();
@@ -225,5 +214,6 @@ internal class Program
         //foreach (UserPremium ur in urList)
         //    Console.WriteLine(ur);
         //Console.WriteLine();
+        #endregion
     }
 }
