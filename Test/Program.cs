@@ -145,8 +145,8 @@ internal class Program
         VideoReview vrInsert = new VideoReview();
         vrInsert.WhoUpdatedTheReview = cList[0];
         vrInsert.WhichVideoDidTheUserReview = vList[0];
-        vrInsert.ReviewDate = new DateTime(2005, 11, 19);
-        vrInsert.ReviewDescription = "The video was fine";
+        vrInsert.ReviewDate = new DateTime(2023, 11, 19);
+        vrInsert.ReviewDescription = "The video wasnt good enough";
         vrdb.Insert(vrInsert);
         int y = vrdb.SaveChanges();
         Console.WriteLine($"Inserted rows: {y}");
