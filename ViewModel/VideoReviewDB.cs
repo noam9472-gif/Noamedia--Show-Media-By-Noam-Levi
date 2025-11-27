@@ -63,22 +63,32 @@ namespace ViewModel
                
             }
         }
+      
 
         protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
         {
             VideoReview vr = entity as VideoReview;
             if (vr != null)
             {
-                string sqlStr = $"Insert INTO VideoReview ( WhoUpdatedTheReview , WhichVideoDidTheUserReview , ReviewDate , ReviewDescription) VALUES ( @WhoUpdatedTheReview , @WhichVideoDidTheUserReview , @ReviewDate , @ReviewDescription)";
+                string sqlStr = $"Insert INTO VideoReview ( ID, WhoUpdatedTheReview , WhichVideoDidTheUserReview , ReviewDate , ReviewDescription) VALUES ( @ID, @WhoUpdatedTheReview , @WhichVideoDidTheUserReview , @ReviewDate , @ReviewDescription)";
 
                 command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@ID", vr.Id));
                 command.Parameters.Add(new OleDbParameter("@WhoUpdatedTheReview", vr.WhoUpdatedTheReview));
                 command.Parameters.Add(new OleDbParameter("@WhichVideoDidTheUserReview", vr.WhichVideoDidTheUserReview));
                 command.Parameters.Add(new OleDbParameter("@ReviewDate", vr.ReviewDate));
                 command.Parameters.Add(new OleDbParameter("@ReviewDescription", vr.ReviewDescription));
             }
         }
-
+        public override void Insert(BaseEntity entity)
+        {
+            BaseEntity reqEntity = this.NewEntity();
+            if (entity != null & entity.GetType() == reqEntity.GetType())
+            {
+                inserted.Add(new ChangeEntity(base.CreateInsertdSQL, entity));
+                inserted.Add(new ChangeEntity(this.CreateInsertdSQL, entity));
+            }
+        }
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
         {
             VideoReview vr = entity as VideoReview;

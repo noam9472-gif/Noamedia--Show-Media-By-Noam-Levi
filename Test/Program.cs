@@ -9,10 +9,10 @@ internal class Program
     private static void Main(string[] args)
     {
         //        טבלת User
-        //UserDB cdb = new();
-        //UserList cList = cdb.SelectAll();
-        //foreach (User c in cList)
-        //    Console.WriteLine(c.UserName);
+        UserDB cdb = new();
+        UserList cList = cdb.SelectAll();
+        foreach (User c in cList)
+            Console.WriteLine(c.UserName);
 
         //        Console.WriteLine();
         //        User cUpdate = cList[0];
@@ -81,10 +81,10 @@ internal class Program
 
 
         //        טבלת Video
-        //VideoDB vdb = new();
-        //VideoList vList = vdb.SelectAll();
-        //foreach (Video v in vList)
-        //    Console.WriteLine(v.VideoName);
+        VideoDB vdb = new();
+        VideoList vList = vdb.SelectAll();
+        foreach (Video v in vList)
+            Console.WriteLine(v.VideoName);
 
         //        Console.WriteLine();
         //        Video vUpdate = vList[0];
@@ -129,10 +129,10 @@ internal class Program
 
 
         //        טבלת VideoReview
-        //VideoReviewDB vrdb = new();
-        //VideoReviewList vrList = vrdb.SelectAll();
-        //foreach (VideoReview vr in vrList)
-        //    Console.WriteLine(vr.ReviewDescription);
+        VideoReviewDB vrdb = new();
+        VideoReviewList vrList = vrdb.SelectAll();
+        foreach (VideoReview vr in vrList)
+            Console.WriteLine(vr.ReviewDescription);
 
         //        Console.WriteLine();
         //        VideoReview vrUpdate = vrList[0];
@@ -141,15 +141,15 @@ internal class Program
         //        int x = vrdb.SaveChanges();
         //        Console.WriteLine($"Updated rows: {x}");
 
-        //Console.WriteLine();
-        //VideoReview vrInsert = new VideoReview();
-        //vrInsert.WhoUpdatedTheReview = cList[0];
-        //vrInsert.WhichVideoDidTheUserReview = vList[0];
-        //vrInsert.ReviewDate = new DateTime(2005, 11, 19);
-        //vrInsert.ReviewDescription = "The video was fine";
-        //vrdb.Insert(vrInsert);
-        //int y = vrdb.SaveChanges();
-        //Console.WriteLine($"Inserted rows: {y}");
+        Console.WriteLine();
+        VideoReview vrInsert = new VideoReview();
+        vrInsert.WhoUpdatedTheReview = cList[0];
+        vrInsert.WhichVideoDidTheUserReview = vList[0];
+        vrInsert.ReviewDate = new DateTime(2005, 11, 19);
+        vrInsert.ReviewDescription = "The video was fine";
+        vrdb.Insert(vrInsert);
+        int y = vrdb.SaveChanges();
+        Console.WriteLine($"Inserted rows: {y}");
 
         //VideoReview vrDelete = vrList.Last();
         //vrdb.Delete(vrDelete);
@@ -194,10 +194,10 @@ internal class Program
 
 
         //        טבלת UserPremium
-        UserPremiumDB urdb = new();
-        UserPremiumList urList = urdb.SelectAll();
-        foreach (UserPremium ur in urList)
-            Console.WriteLine(ur.IdentityCard);
+        //UserPremiumDB urdb = new();
+        //UserPremiumList urList = urdb.SelectAll();
+        //foreach (UserPremium ur in urList)
+        //    Console.WriteLine(ur.IdentityCard);
 
         //        Console.WriteLine();
         //        UserPremium urUpdate = urList[0];
@@ -206,12 +206,17 @@ internal class Program
         //        int x = urdb.SaveChanges();
         //        Console.WriteLine($"Updated rows: {x}");
 
-        Console.WriteLine();
-        UserPremium urInsert = new UserPremium();
-        urInsert.IdentityCard = "12456798";
-        urdb.Insert(urInsert);
-        int y = urdb.SaveChanges();
-        Console.WriteLine($"Inserted rows: {y}");
+        //Console.WriteLine();
+        //UserPremium urInsert = new UserPremium() ;
+        //urInsert.UserName = "Itay Evron";
+        //urInsert.DateOfBirth = new DateTime(2008, 07, 14);
+        //urInsert.Mail = "ItayE@gmail.com";
+        //urInsert.Pass = "IE2008";
+        //urInsert.Name = "IEv13";
+        //urInsert.IdentityCard = "12456798";
+        //urdb.Insert(urInsert);
+        //int y = urdb.SaveChanges();
+        //Console.WriteLine($"Inserted rows: {y}");
 
         //UserPremium urDelete = urList.Last();
         //urdb.Delete(urDelete);

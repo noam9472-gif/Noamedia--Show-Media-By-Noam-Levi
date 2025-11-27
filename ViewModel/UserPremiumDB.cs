@@ -68,10 +68,12 @@ namespace ViewModel
             UserPremium ur = entity as UserPremium;
             if (ur != null)
             {
-                string sqlStr = $"Insert INTO  UserPremium (IdentityCard) VALUES (@IdentityCard)";
+                string sqlStr = $"Insert INTO  UserPremium (ID, IdentityCard) VALUES (@ID, @IdentityCard)";
 
                 command.CommandText = sqlStr;
+                command.Parameters.Add(new OleDbParameter("@ID", ur.Id));
                 command.Parameters.Add(new OleDbParameter("@IdentityCard", ur.IdentityCard));
+
             }
         }
 
@@ -82,6 +84,15 @@ namespace ViewModel
             {
                 updated.Add(new ChangeEntity(base.CreateUpdatedSQL, entity));
                 updated.Add(new ChangeEntity(this.CreateUpdatedSQL, entity));
+            }
+        }
+        public override void Insert(BaseEntity entity)
+        {
+            BaseEntity reqEntity = this.NewEntity();
+            if (entity != null & entity.GetType() == reqEntity.GetType())
+            {
+                inserted.Add(new ChangeEntity(base.CreateInsertdSQL, entity));
+                inserted.Add(new ChangeEntity(this.CreateInsertdSQL, entity));
             }
         }
 
