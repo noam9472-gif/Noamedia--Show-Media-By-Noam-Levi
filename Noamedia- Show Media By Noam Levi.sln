@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36408.4
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noamedia- Show Media By Noam Levi", "Noamedia- Show Media By Noam Levi\Noamedia- Show Media By Noam Levi.csproj", "{E1AA6478-8C8F-4FAB-9DE3-06388E035DD8}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{B4D8B9A3-8F43-4E0B-9A69-4BBA17BF6126}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{A2E873F1-97A0-441C-BADA-D36DD5C0DADD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.API", "Movies.API\Movies.API.csproj", "{B4A52A29-87A3-4480-9FB8-39F15126E7C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A2E873F1-97A0-441C-BADA-D36DD5C0DADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2E873F1-97A0-441C-BADA-D36DD5C0DADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2E873F1-97A0-441C-BADA-D36DD5C0DADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4A52A29-87A3-4480-9FB8-39F15126E7C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4A52A29-87A3-4480-9FB8-39F15126E7C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4A52A29-87A3-4480-9FB8-39F15126E7C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4A52A29-87A3-4480-9FB8-39F15126E7C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
