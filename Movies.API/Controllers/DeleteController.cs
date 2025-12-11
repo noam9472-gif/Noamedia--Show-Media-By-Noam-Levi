@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Noamedia__Show_Media_By_Noam_Levi
+using Noamedia__Show_Media_By_Noam_Levi;
 using Model;
 using ViewModel;
 
@@ -12,60 +12,58 @@ namespace Movies.API.Controllers
     {
         // GET: DeleteController
         [HttpDelete]
-        [ActionName("VideoSelector")]
-        public VideoList DeleteVideo()
+        [ActionName("VideoDeleter")]
+        public int DeleteVideo(Video vDelete)
         {
             VideoDB vdb = new();
-            VideoList vList = vdb.SelectAll();
-            foreach (Video v in vList)
-                Console.WriteLine(v.VideoName);
-            Video vDelete = vList.Last();
             vdb.Delete(vDelete);
             int z = vdb.SaveChanges();
-            Console.WriteLine($"{z} rows were deleted");
-            foreach (Video v in vList)
-                Console.WriteLine(v);
-            Console.WriteLine();
+            return z;
         }
         [HttpDelete]
-        [ActionName("UserSelector")]
-        public UserList SelectAllUsers()
+        [ActionName("UserDeleter")]
+        public int DeleteUser(User uDelete)
         {
-            UserDB db = new UserDB();
-            UserList videos = db.SelectAll();
-            return videos;
+            UserDB udb = new();
+            udb.Delete(uDelete);
+            int z = udb.SaveChanges();
+            return z;
         }
         [HttpDelete]
-        [ActionName("GenreSelector")]
-        public GenreList SelectAllGenres()
+        [ActionName("GenreDeleter")]
+        public int DeleteGenre(Genre gDelete)
         {
-            GenreDB db = new GenreDB();
-            GenreList genres = db.SelectAll();
-            return genres;
+            GenreDB gdb = new();
+            gdb.Delete(gDelete);
+            int z = gdb.SaveChanges();
+            return z;
         }
         [HttpDelete]
-        [ActionName("VideoReviewSelector")]
-        public VideoReviewList SelectAllVideoReviews()
+        [ActionName("VideoReviewDeleter")]
+        public int DeleteVideoReview(VideoReview vrDelete)
         {
-            VideoReviewDB db = new VideoReviewDB();
-            VideoReviewList videoReviews = db.SelectAll();
-            return videoReviews;
+            VideoReviewDB vrdb = new();
+            vrdb.Delete(vrDelete);
+            int z = vrdb.SaveChanges();
+            return z;
         }
         [HttpDelete]
-        [ActionName("AgeOfVideoSelector")]
-        public AgeOfVideoList SelectAllAgeOfVideos()
+        [ActionName("AgeOfVideoDeleter")]
+        public int DeleteAgeOfVideo(AgeOfVideos aovDelete)
         {
-            AgeOfVideosDB db = new AgeOfVideosDB();
-            AgeOfVideoList ageOfVideos = db.SelectAll();
-            return ageOfVideos;
+            AgeOfVideosDB aovdb = new();
+            aovdb.Delete(aovDelete);
+            int z = aovdb.SaveChanges();
+            return z;
         }
         [HttpDelete]
-        [ActionName("UserPremiumSelector")]
-        public UserPremiumList SelectAllUserPremiums()
+        [ActionName("UserPremiumDeleter")]
+        public int DeleteUserPremium(UserPremium upDelete)
         {
-            UserPremiumDB db = new UserPremiumDB();
-            UserPremiumList movies = db.SelectAll();
-            return movies;
+            UserPremiumDB updb = new();
+            updb.Delete(upDelete);
+            int z = updb.SaveChanges();
+            return z;
         }
         public ActionResult Index()
         {
