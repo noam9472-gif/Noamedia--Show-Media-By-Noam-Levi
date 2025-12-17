@@ -56,9 +56,9 @@ namespace Movies.API.Controllers
         }
         [HttpPut]
         [ActionName("AgeOfVideoUpdater")]
-        public int UpdateAgeOfVideo([FromBody] AgeOfVideo ageOfVideo)
+        public int UpdateAgeOfVideo([FromBody] AgeOfVideos ageOfVideo)
         {
-            AgeOfVideoDB aovdb = new AgeOfVideoDB();
+            AgeOfVideosDB aovdb = new AgeOfVideosDB();
             aovdb.Update(ageOfVideo);
             int x = aovdb.SaveChanges();
             return x;

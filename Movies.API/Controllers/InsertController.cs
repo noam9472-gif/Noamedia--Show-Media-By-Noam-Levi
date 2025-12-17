@@ -58,7 +58,7 @@ namespace Movies.API.Controllers
         [ActionName("AgeOfVideoInserter")]
         public int InsertAgeOfVideo([FromBody] AgeOfVideos ageOfVideo)
         {
-            AgeOfVideoDB aovdb = new AgeOfVideoDB();
+            AgeOfVideosDB aovdb = new AgeOfVideosDB();
             aovdb.Insert(ageOfVideo);
             int x = aovdb.SaveChanges();
             return x;
