@@ -59,7 +59,7 @@ namespace Movies.API.Controllers
             UserPremiumList movies = db.SelectAll();
             return movies;
         }
-        
+
         public ActionResult Index()
         {
             return View();
