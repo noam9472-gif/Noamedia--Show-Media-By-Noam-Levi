@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Noamedia__Show_Media_By_Noam_Levi
+namespace Model
 {
     public class Video : BaseEntity
     {

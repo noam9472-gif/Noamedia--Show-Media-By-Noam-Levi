@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.OleDb;
-using Noamedia__Show_Media_By_Noam_Levi;
 using static ViewModel.BaseDB;
 
 namespace ViewModel

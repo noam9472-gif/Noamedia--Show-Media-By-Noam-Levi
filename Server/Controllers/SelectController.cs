@@ -9,7 +9,7 @@ namespace Movies.API.Controllers
     [ApiController]
     public class SelectController : Controller
     {
-        
+
         // GET: SelectController
         [HttpGet]
         [ActionName("VideoSelector")]
@@ -58,80 +58,6 @@ namespace Movies.API.Controllers
             UserPremiumDB db = new UserPremiumDB();
             UserPremiumList movies = db.SelectAll();
             return movies;
-        }
-
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: SelectController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: SelectController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: SelectController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SelectController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: SelectController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SelectController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: SelectController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
