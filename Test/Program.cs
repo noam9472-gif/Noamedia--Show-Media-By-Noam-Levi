@@ -2,10 +2,13 @@
 using System.Reflection.PortableExecutable;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using ViewModel;
+using ApiInterface;
+using Server;
 internal class Program
 {
-    private static void Main(string[] args)
+    private static async Task Main(string[] args)
     {
 
         #region User
@@ -214,5 +217,22 @@ internal class Program
         //    Console.WriteLine(ur);
         //Console.WriteLine();
         #endregion
+
+        #region User SelectAPI
+        //InterfaceAPI api = new InterfaceAPI();
+        //UserList users = await api.GetAllUsers();
+        //foreach (var user in users)
+        //{
+        //    await Console.Out.WriteLineAsync(user.UserName);
+        //}
+        #endregion
+
+        #region Genre InsertAPI
+        InterfaceAPI api = new InterfaceAPI();
+        UserList users = await api.GetAllUsers();
+        foreach (var user in users)
+        {
+            await Console.Out.WriteLineAsync(user.UserName);
+        }
     }
 }
