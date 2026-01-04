@@ -218,21 +218,94 @@ internal class Program
         //Console.WriteLine();
         #endregion
 
-        #region User SelectAPI
-        //InterfaceAPI api = new InterfaceAPI();
-        //UserList users = await api.GetAllUsers();
-        //foreach (var user in users)
-        //{
-        //    await Console.Out.WriteLineAsync(user.UserName);
-        //}
+        #region GenreAPI
+        //InterfaceAPI api = new();
+        //GenreList genres = await api.GetAllGenres();
+        //Console.WriteLine(genres.Count);
+        //int id = genres.Last().Id;
+        //await api.DeleteGenre(id);
+        //Console.WriteLine(genres.Count);
+
+        //Genre g1= new Genre() { GenreDescription = "Cooking"};
+        //await api.InsertGenre(g1);
+        //Genre myGenre = genres.First();
+        //myGenre.GenreDescription = "WWE";
+        //await api.UpdateGenre(myGenre);
         #endregion
 
-        #region Genre InsertAPI
-        InterfaceAPI api = new InterfaceAPI();
-        UserList users = await api.GetAllUsers();
-        foreach (var user in users)
-        {
-            await Console.Out.WriteLineAsync(user.UserName);
-        }
+        #region UserAPI
+        //InterfaceAPI api = new();
+        //UserList Users = await api.GetAllUsers();
+        //Console.WriteLine(Users.Count);
+        //int id = Users.Last().Id;
+        //await api.DeleteUser(id);
+        //Console.WriteLine(Users.Count);
+
+        //User g1 = new User() { UserName = "Michael" };
+        //await api.InsertUser(g1);
+        //User myUser = Users.First();
+        //myUser.UserName = "Ahmed";
+        //await api.UpdateUser(myUser);
+        #endregion
+
+        #region VideoAPI
+        //InterfaceAPI api = new();
+        //VideoList Videos = await api.GetAllVideos();
+        //Console.WriteLine(Videos.Count);
+        //int id = Videos.Last().Id;
+        //await api.DeleteVideo(id);
+        //Console.WriteLine(Videos.Count);
+
+        //Video g1 = new Video() { VideoName = "SpongeBob" };
+        //await api.InsertVideo(g1);
+        //Video myVideo = Videos.First();
+        //myVideo.VideoName = "Masha and the bear";
+        //await api.UpdateVideo(myVideo);
+        #endregion
+
+        #region VideoReviewAPI
+        //InterfaceAPI api = new();
+        //VideoReviewList VideoReviews = await api.GetAllVideoReviews();
+        //Console.WriteLine(VideoReviews.Count);
+        //int id = VideoReviews.Last().Id;
+        //await api.DeleteVideoReview(id);
+        //Console.WriteLine(VideoReviews.Count);
+
+        //VideoReview g1 = new VideoReview() { ReviewDescription = "the video is really good" };
+        //await api.InsertVideoReview(g1);
+        //VideoReview myVideoReview = VideoReviews.First();
+        //myVideoReview.ReviewDescription = "I really dont love this video";
+        //await api.UpdateVideoReview(myVideoReview);
+        #endregion
+
+        #region UserPremiumAPI
+        //InterfaceAPI api = new();
+        //UserPremiumList UserPremiums = await api.GetAllUserPremiums();
+        //Console.WriteLine(UserPremiums.Count);
+        //int id = UserPremiums.Last().Id;
+        //await api.DeleteUserPremium(id);
+        //Console.WriteLine(UserPremiums.Count);
+
+        //UserPremium g1 = new UserPremium() { IdentityCard = "217594251" };
+        //await api.InsertUserPremium(g1);
+        //UserPremium myUserPremium = UserPremiums.First();
+        //myUserPremium.IdentityCard = "331456812";
+        //await api.UpdateUserPremium(myUserPremium);
+        #endregion
+
+        #region AgeOfVideoAPI
+        //InterfaceAPI api = new();
+        //AgeOfVideoList AgeOfVIdeos = await api.GetAllAgeOfVideos();
+        //Console.WriteLine(AgeOfVIdeos.Count);
+        //int id = AgeOfVIdeos.Last().Id;
+        //await api.DeleteAgeOfVideo(id);
+        //Console.WriteLine(AgeOfVIdeos.Count);
+
+        //AgeOfVideos g1 = new AgeOfVideos() { Description = "84+" };
+        //await api.InsertAgeOfVideo(g1);
+        //AgeOfVideos myAgeOfVIdeo = AgeOfVIdeos.First();
+        //myAgeOfVIdeo.Description = "63+";
+        //await api.UpdateAgeOfVideo(myAgeOfVIdeo);
+        #endregion
     }
 }
