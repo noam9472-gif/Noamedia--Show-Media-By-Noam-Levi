@@ -226,7 +226,7 @@ internal class Program
         //await api.DeleteGenre(id);
         //Console.WriteLine(genres.Count);
 
-        //Genre g1= new Genre() { GenreDescription = "Cooking"};
+        //Genre g1 = new Genre() { GenreDescription = "Cooking" };
         //await api.InsertGenre(g1);
         //Genre myGenre = genres.First();
         //myGenre.GenreDescription = "WWE";
@@ -294,18 +294,18 @@ internal class Program
         #endregion
 
         #region AgeOfVideoAPI
-        //InterfaceAPI api = new();
-        //AgeOfVideoList AgeOfVIdeos = await api.GetAllAgeOfVideos();
-        //Console.WriteLine(AgeOfVIdeos.Count);
-        //int id = AgeOfVIdeos.Last().Id;
-        //await api.DeleteAgeOfVideo(id);
-        //Console.WriteLine(AgeOfVIdeos.Count);
+        InterfaceAPI api = new();
+        AgeOfVideoList AgeOfVIdeos = await api.GetAllAgeOfVideos();
+        Console.WriteLine(AgeOfVIdeos.Count);
+        int id = AgeOfVIdeos.Last().Id;
+        await api.DeleteAgeOfVideo(id);
+        Console.WriteLine(AgeOfVIdeos.Count);
 
-        //AgeOfVideos g1 = new AgeOfVideos() { Description = "84+" };
-        //await api.InsertAgeOfVideo(g1);
-        //AgeOfVideos myAgeOfVIdeo = AgeOfVIdeos.First();
-        //myAgeOfVIdeo.Description = "63+";
-        //await api.UpdateAgeOfVideo(myAgeOfVIdeo);
+        AgeOfVideos g1 = new AgeOfVideos() { Description = "84+" };
+        await api.InsertAgeOfVideo(g1);
+        AgeOfVideos myAgeOfVIdeo = AgeOfVIdeos.First();
+        myAgeOfVIdeo.Description = "63+";
+        await api.UpdateAgeOfVideo(myAgeOfVIdeo);
         #endregion
     }
 }
