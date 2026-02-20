@@ -165,11 +165,6 @@ namespace ViewModel
             }
         }
 
-
-
-
-
-
         public int SaveChanges()
         {
             OleDbTransaction trans = null;
