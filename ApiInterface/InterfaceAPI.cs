@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Model;
 using ViewModel;
+using System.Text.Json; 
 
 namespace ApiInterface
 {
@@ -20,13 +22,37 @@ namespace ApiInterface
 
         }
 
-        public async Task<VideoList> GetAllVideos()
+
+public async Task<string> GetVideoPicByte64(int id)
+    {
+        string st = null;
+        string URI = $"{uri}/api/Select/VideoPicSelector64Byte/{id}"; 
+        HttpResponseMessage response = await client.GetAsync(URI);
+
+        if (response.IsSuccessStatusCode)
+        {
+            string json = await response.Content.ReadAsStringAsync();
+            try
+            {
+                st = JsonSerializer.Deserialize<string>(json);
+            }
+            catch (Exception ex)
+            {
+              
+            }
+        }
+        return st;
+    }
+
+
+
+    public async Task<VideoList> GetAllVideos()
         {
             return await client.GetFromJsonAsync<VideoList>(uri + "/api/Select/VideoSelector");
         }
         public async Task<int> DeleteVideo(int id)
         {
-            return (await client.DeleteAsync(uri + $"/api/Delete/VideoDeleter/"+id)).IsSuccessStatusCode ? 1:0 ;
+            return (await client.DeleteAsync(uri + $"/api/Delete/VideoDeleter/" + id)).IsSuccessStatusCode ? 1 : 0;
         }
         public async Task<int> InsertVideo(Video video)
         {

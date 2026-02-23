@@ -38,5 +38,7 @@ namespace ApiInterface
         public Task<int> DeleteAgeOfVideo(int id);
         public Task<int> InsertAgeOfVideo(AgeOfVideos ageOfVideo);   
         public Task<int> UpdateAgeOfVideo(AgeOfVideos ageOfVideo);
+
+        Task<string> GetVideoPicByte64(int id);
     }
 }

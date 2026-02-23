@@ -16,6 +16,8 @@ namespace Model
         private Genre genre;
         private AgeOfVideos ageOfVideo;
         private string videoAddress;
+        private string videoDescription;
+        private string videoPic;
 
         public DateTime VideoUploadedDate { get => videoUploadedDate; set => videoUploadedDate = value; }
         public int LengthInMinutes { get => lengthInMinutes; set => lengthInMinutes = value; }
@@ -24,5 +26,7 @@ namespace Model
         public Genre Genre { get => genre; set => genre = value; }
         public AgeOfVideos AgeOfVideo { get => ageOfVideo; set => ageOfVideo = value; }
         public string VideoAddress { get => videoAddress; set => videoAddress = value; }
+        public string VideoDescription { get => videoDescription; set => videoDescription = value; }
+        public string VideoPic { get => videoPic; set => videoPic = value; }
     }
 }

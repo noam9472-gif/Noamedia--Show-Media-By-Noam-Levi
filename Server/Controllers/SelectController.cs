@@ -59,5 +59,12 @@ namespace Movies.API.Controllers
             UserPremiumList movies = db.SelectAll();
             return movies;
         }
+        [HttpGet("VideoPicSelector64Byte/{id}")] // הוספת שם הנתיב לפני ה-ID למניעת כפילויות
+        public string SelectVideoPicById(int id)
+        {
+            VideoDB db = new VideoDB();
+            string videoPic = db.SelectVideoPicById(id);
+            return videoPic;
+        }
     }
 }

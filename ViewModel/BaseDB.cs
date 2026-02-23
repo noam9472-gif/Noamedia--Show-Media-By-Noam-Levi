@@ -21,30 +21,12 @@ namespace ViewModel
         protected static OleDbConnection connection;
         protected OleDbCommand command;
         protected OleDbDataReader reader;
-        public static string Path()
-        {
-            String[] args = Environment.GetCommandLineArgs();
-            string s;
-            if (args.Length == 1)
-            {
-                s = args[0];
-            }
-            else
-            {
-                s = args[1];
-                s = s.Replace("/service:", "");
-            }
-            string[] st = s.Split('\\');
-            int x = st.Length - 6;
-            st[x] = "VViewModel";
-            Array.Resize(ref st, x + 1);
-            string str = String.Join('\\', st);
-            return str;
-        }
+
         //C:\Users\nativ\Downloads\Exampl_Project\MyWhatApp\VViewModel\ExampleProjectBagrutGrades.accdb
         public BaseDB()
         {
-            var x = Path();
+            var x = GetDatabasePath();
+
             connection ??= new OleDbConnection(connectionString);
             command = new OleDbCommand();
             command.Connection = connection;
@@ -228,6 +210,24 @@ namespace ViewModel
 
             return records_affected;
         }
+        public static string GetDatabasePath()
+        {
+            String[] args = Environment.GetCommandLineArgs();
+            string s;
+            if (args.Length == 1) { s = args[0]; }
+            else
+            {
+                s = args[1];
+                s = s.Replace("/service:", "");
+            }
+            string[] st = s.Split('\\');
+            int x = st.Length - 6;
 
+            st[x] = "ViewModel";
+
+            Array.Resize(ref st, x + 1);
+            string str = String.Join('\\', st);
+            return str;
+        }
     }
 }
