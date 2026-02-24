@@ -40,5 +40,9 @@ namespace ApiInterface
         public Task<int> UpdateAgeOfVideo(AgeOfVideos ageOfVideo);
 
         Task<string> GetVideoPicByte64(int id);
+
+        Task<MyLikesList> GetAllLikes();
+        Task<int> InsertLike(MyLikes like);
+        Task<int> DeleteLike(int id);
     }
 }

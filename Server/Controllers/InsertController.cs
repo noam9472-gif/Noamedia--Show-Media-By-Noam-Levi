@@ -65,6 +65,15 @@ namespace Movies.API.Controllers
             int x = aovdb.SaveChanges();
             return x;
         }
-    
+        [HttpPost]
+        [ActionName("MyLikesInserter")]
+        public int InsertMyLike([FromBody] MyLikes like)
+        {
+            MyLikesDB mldb = new MyLikesDB();
+            mldb.Insert(like);
+            int x = mldb.SaveChanges();
+            return x;
+        }
+
     }
 }

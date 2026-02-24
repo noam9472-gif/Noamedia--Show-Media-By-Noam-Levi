@@ -66,5 +66,13 @@ namespace Movies.API.Controllers
             string videoPic = db.SelectVideoPicById(id);
             return videoPic;
         }
+        [HttpGet]
+        [ActionName("MyLikesSelector")]
+        public MyLikesList SelectAllMyLikes()
+        {
+            MyLikesDB db = new MyLikesDB();
+            MyLikesList likes = db.SelectAll();
+            return likes;
+        }
     }
 }

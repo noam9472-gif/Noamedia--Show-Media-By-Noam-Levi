@@ -23,30 +23,30 @@ namespace ApiInterface
         }
 
 
-public async Task<string> GetVideoPicByte64(int id)
-    {
-        string st = null;
-        string URI = $"{uri}/api/Select/VideoPicSelector64Byte/{id}"; 
-        HttpResponseMessage response = await client.GetAsync(URI);
-
-        if (response.IsSuccessStatusCode)
+        public async Task<string> GetVideoPicByte64(int id)
         {
-            string json = await response.Content.ReadAsStringAsync();
-            try
+            string st = null;
+            string URI = $"{uri}/api/Select/VideoPicSelector64Byte/{id}";
+            HttpResponseMessage response = await client.GetAsync(URI);
+
+            if (response.IsSuccessStatusCode)
             {
-                st = JsonSerializer.Deserialize<string>(json);
+                string json = await response.Content.ReadAsStringAsync();
+                try
+                {
+                    st = JsonSerializer.Deserialize<string>(json);
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
-            catch (Exception ex)
-            {
-              
-            }
+            return st;
         }
-        return st;
-    }
 
 
 
-    public async Task<VideoList> GetAllVideos()
+        public async Task<VideoList> GetAllVideos()
         {
             return await client.GetFromJsonAsync<VideoList>(uri + "/api/Select/VideoSelector");
         }
@@ -141,6 +141,20 @@ public async Task<string> GetVideoPicByte64(int id)
         public async Task<int> UpdateAgeOfVideo(AgeOfVideos AgeOfVideo)
         {
             return (await client.PutAsJsonAsync(uri + "/api/Update/AgeOfVideoUpdater", AgeOfVideo)).IsSuccessStatusCode ? 1 : 0;
+        }
+        public async Task<MyLikesList> GetAllLikes()
+        { 
+            return await client.GetFromJsonAsync<MyLikesList>(uri + "/api/Select/MyLikesSelector");
+        }
+        public async Task<int> InsertLike(MyLikes like)
+        {
+            return (await client.PostAsJsonAsync(uri + "/api/Insert/MyLikesInserter", like)).IsSuccessStatusCode ? 1 : 0;
+        }
+
+        public async Task<int> DeleteLike(int id)
+        {
+            // ב-DeleteController שלך הפונקציה מצפה ל-ID בנתיב (URL)
+            return (await client.DeleteAsync(uri + $"/api/Delete/MyLikesDeleter/" + id)).IsSuccessStatusCode ? 1 : 0;
         }
     }
 }
