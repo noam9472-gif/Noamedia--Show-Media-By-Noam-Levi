@@ -33,11 +33,9 @@ namespace ViewModel
                 ct.VideoUploadedDate = (DateTime)reader["VideoUploadedDate"];
                 ct.VideoDescription = reader["VideoDescription"]?.ToString() ?? "";
 
-                // טיפול בתמונה
                 string fileName = reader["VideoPic"]?.ToString() ?? "";
                 if (!string.IsNullOrEmpty(fileName))
                 {
-                    // Path.Combine יחבר את נתיב הריצה של השרת עם תיקיית Pictures והקובץ
                     string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Pictures", fileName);
 
                     if (File.Exists(fullPath))
@@ -85,8 +83,6 @@ namespace ViewModel
                 command.Parameters.Add(new OleDbParameter("@AgeOfVideo", v.AgeOfVideo.Id));
                 command.Parameters.Add(new OleDbParameter("@VideoAddress", v.VideoAddress));
                 command.Parameters.Add(new OleDbParameter("@VideoDescription", v.VideoDescription));
-
-                // כאן אנחנו שומרים את שם הקובץ (למשל "1.jpg")
                 command.Parameters.Add(new OleDbParameter("@VideoPic", v.VideoPic ?? ""));
             }
         }

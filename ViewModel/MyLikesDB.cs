@@ -7,7 +7,7 @@ namespace ViewModel
     {
         public MyLikesList SelectAll()
         {
-            command.CommandText = "SELECT * FROM MyLikes"; // וודא שזה השם באקסס
+            command.CommandText = "SELECT * FROM MyLikes"; 
             MyLikesList groupList = new MyLikesList(base.Select());
             return groupList;
         }
@@ -17,15 +17,11 @@ namespace ViewModel
             MyLikes ct = entity as MyLikes;
             if (ct != null)
             {
-                // 1. קודם כל שולפים את ה-ID של הלייק עצמו
                 ct.Id = (int)reader["ID"];
 
-                // 2. שולפים את ה-IDs מהמסד (כמספרים)
                 int uId = (int)reader["UserId"];
                 int vId = (int)reader["VideoId"];
 
-                // 3. שימוש בקריאה סטטית (בלי new) כמו שהשגיאה דורשת
-                // במקום uDB.SelectById - פשוט תקרא לזה ישירות מהקלאס:
                 ct.UserId = UserDB.SelectById(uId);
                 ct.VideoId = VideoDB.SelectById(vId);
             }
@@ -70,7 +66,6 @@ namespace ViewModel
             }
         }
 
-        // פונקציות סטטיות עזר
         static private MyLikesList list = new MyLikesList();
         public static MyLikes SelectById(int id)
         {

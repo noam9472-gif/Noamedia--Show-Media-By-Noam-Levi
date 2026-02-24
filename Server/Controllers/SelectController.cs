@@ -9,8 +9,6 @@ namespace Movies.API.Controllers
     [ApiController]
     public class SelectController : Controller
     {
-
-        // GET: SelectController
         [HttpGet]
         [ActionName("VideoSelector")]
         public VideoList SelectAllVideos()
@@ -59,7 +57,7 @@ namespace Movies.API.Controllers
             UserPremiumList movies = db.SelectAll();
             return movies;
         }
-        [HttpGet("VideoPicSelector64Byte/{id}")] // הוספת שם הנתיב לפני ה-ID למניעת כפילויות
+        [HttpGet("VideoPicSelector64Byte/{id}")] 
         public string SelectVideoPicById(int id)
         {
             VideoDB db = new VideoDB();

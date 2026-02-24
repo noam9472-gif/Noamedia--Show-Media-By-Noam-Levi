@@ -153,7 +153,6 @@ namespace ApiInterface
 
         public async Task<int> DeleteLike(int id)
         {
-            // ב-DeleteController שלך הפונקציה מצפה ל-ID בנתיב (URL)
             return (await client.DeleteAsync(uri + $"/api/Delete/MyLikesDeleter/" + id)).IsSuccessStatusCode ? 1 : 0;
         }
     }
