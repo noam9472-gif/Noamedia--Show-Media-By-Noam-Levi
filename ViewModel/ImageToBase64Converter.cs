@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace ViewModel 
+namespace ViewModel
 {
     public static class ImageToBase64Converter
     {
@@ -9,7 +9,7 @@ namespace ViewModel
         {
             try
             {
-                if (!File.Exists(imagePath)) return ""; // בדיקה שהקובץ קיים
+                if (!File.Exists(imagePath)) return "";
                 byte[] imageBytes = File.ReadAllBytes(imagePath);
                 return Convert.ToBase64String(imageBytes);
             }

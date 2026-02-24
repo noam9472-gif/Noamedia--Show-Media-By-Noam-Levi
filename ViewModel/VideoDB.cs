@@ -23,7 +23,6 @@ namespace ViewModel
             Video ct = entity as Video;
             if (ct != null)
             {
-                // קריאת נתונים בסיסיים
                 ct.Id = int.Parse(reader["ID"].ToString());
                 ct.LengthInMinutes = int.Parse(reader["LengthInMinutes"].ToString());
                 ct.AgeOfVideo = AgeOfVideosDB.SelectById((int)reader["AgeOfVideo"]);
@@ -32,29 +31,25 @@ namespace ViewModel
                 ct.Genre = GenreDB.SelectById((int)reader["Genre"]);
                 ct.VideoAddress = reader["VideoAddress"].ToString();
                 ct.VideoUploadedDate = (DateTime)reader["VideoUploadedDate"];
+                ct.VideoDescription = reader["VideoDescription"]?.ToString() ?? "";
 
-                // תיקון 1: קריאת התיאור (שלא יהיה null)
-                ct.VideoDescription = reader["VideoDescription"] != DBNull.Value ? reader["VideoDescription"].ToString() : "";
-
-                // תיקון 2: הפיכת שם הקובץ לקוד ארוך (Base64)
-                string fileName = reader["VideoPic"] != DBNull.Value ? reader["VideoPic"].ToString() : "";
-
+                // טיפול בתמונה
+                string fileName = reader["VideoPic"]?.ToString() ?? "";
                 if (!string.IsNullOrEmpty(fileName))
                 {
-                    // הנתיב לתיקייה בתוך השרת
-                    string folderPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MyPictures");
-                    string fullPath = System.IO.Path.Combine(folderPath, fileName);
+                    // Path.Combine יחבר את נתיב הריצה של השרת עם תיקיית Pictures והקובץ
+                    string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Pictures", fileName);
 
-                    // הדפסה לחלון ה-Output כדי שתוכל לראות איפה הוא מחפש
-                    System.Diagnostics.Debug.WriteLine("Full Path Check: " + fullPath);
-
-                    // המרת הקובץ מהתיקייה למחרוזת ארוכה
-                    ct.VideoPic = ImageToBase64Converter.ImageToBase64(fullPath);
-                }
-                else
-                {
-                    ct.VideoPic = "";
-                }
+                    if (File.Exists(fullPath))
+                    {
+                        ct.VideoPic = ImageToBase64Converter.ImageToBase64(fullPath);
+                    }
+                    else
+                    {
+                        ct.VideoPic = "Missing file at: " + fullPath;
+                    }
+                
+            }
             }
             return ct;
         }
