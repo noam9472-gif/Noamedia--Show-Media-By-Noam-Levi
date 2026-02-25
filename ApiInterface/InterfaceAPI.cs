@@ -155,5 +155,15 @@ namespace ApiInterface
         {
             return (await client.DeleteAsync(uri + $"/api/Delete/MyLikesDeleter/" + id)).IsSuccessStatusCode ? 1 : 0;
         }
+
+        // תוסיף את זה בתוך המחלקה InterfaceAPI
+        public async Task<bool> IsUserPremium(int id)
+        {
+            UserPremiumList premiumList = await GetAllUserPremiums();
+            // בדיקה אם קיים אובייקט ברשימה שה-ID שלו תואם ל-ID שקיבלנו
+            return premiumList != null && premiumList.Any(p => p.Id == id);
+        }
+
+
     }
 }
