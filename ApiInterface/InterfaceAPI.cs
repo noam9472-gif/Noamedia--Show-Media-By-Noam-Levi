@@ -176,15 +176,16 @@ namespace ApiInterface
 
         public async Task<bool> AddLike(int userId, int videoId)
         {
-            // יצירת אובייקט לייק חדש ושליחתו ל-Inserter הקיים שלך
-            MyLikes newLike = new MyLikes
+            MyLikes like = new MyLikes
             {
                 UserId = new User { Id = userId },
                 VideoId = new Video { Id = videoId }
             };
 
-            // שימוש ב-InsertLike שכבר כתבת למעלה
-            return await InsertLike(newLike) == 1;
+            // שימוש בפורמט שכבר עובד לך בשאר הפונקציות
+            var response = await client.PostAsJsonAsync(uri + "/api/Insert/MyLikesInserter", like);
+
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> RemoveLike(int userId, int videoId)
