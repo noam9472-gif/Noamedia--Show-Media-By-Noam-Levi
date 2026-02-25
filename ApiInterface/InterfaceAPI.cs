@@ -164,6 +164,41 @@ namespace ApiInterface
             return premiumList != null && premiumList.Any(p => p.Id == id);
         }
 
+        // בתוך פרויקט ApiInterface -> קובץ InterfaceAPI.cs
+
+        public async Task<bool> CheckIfUserLikedVideo(int userId, int videoId)
+        {
+            // אנחנו מושכים את כל הלייקים ובודקים אם קיים שילוב של המשתמש והסרט
+            // זו הדרך הכי בטוחה אם עדיין אין לך Endpoint ייעודי בשרת
+            MyLikesList allLikes = await GetAllLikes();
+            return allLikes != null && allLikes.Any(l => l.UserId.Id == userId && l.VideoId.Id == videoId);
+        }
+
+        public async Task<bool> AddLike(int userId, int videoId)
+        {
+            // יצירת אובייקט לייק חדש ושליחתו ל-Inserter הקיים שלך
+            MyLikes newLike = new MyLikes
+            {
+                UserId = new User { Id = userId },
+                VideoId = new Video { Id = videoId }
+            };
+
+            // שימוש ב-InsertLike שכבר כתבת למעלה
+            return await InsertLike(newLike) == 1;
+        }
+
+        public async Task<bool> RemoveLike(int userId, int videoId)
+        {
+            // כאן צריך למצוא את ה-ID של הלייק הספציפי כדי למחוק אותו
+            MyLikesList allLikes = await GetAllLikes();
+            var likeToDelete = allLikes?.FirstOrDefault(l => l.UserId.Id == userId && l.VideoId.Id == videoId);
+
+            if (likeToDelete != null)
+            {
+                return await DeleteLike(likeToDelete.Id) == 1;
+            }
+            return false;
+        }
 
     }
 }
