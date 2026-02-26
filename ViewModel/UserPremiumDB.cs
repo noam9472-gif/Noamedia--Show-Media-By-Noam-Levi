@@ -14,7 +14,7 @@ namespace ViewModel
         {
             command.CommandText = $"SELECT UserPremium.ID, UserPremium.IdentityCard," +
                 $" [User].UserName, [User].DateOfBirth, [User].Mail, [User].Pass," +
-                $" [User].Name\r\nFROM (UserPremium INNER JOIN\r\n [User] ON " +
+                $" [User].Name, [User].IsAdmin \r\nFROM (UserPremium INNER JOIN\r\n [User] ON " +
                 $"UserPremium.ID = [User].ID)";
             UserPremiumList groupList = new UserPremiumList(base.Select());
             return groupList;

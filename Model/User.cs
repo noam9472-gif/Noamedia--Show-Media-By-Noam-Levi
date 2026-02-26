@@ -13,10 +13,12 @@ namespace Model
         private DateTime dateOfBirth;
         private string mail;
         private string userName;
+        private bool isAdmin;
         public string Name { get => name; set => name = value; }
         public string Pass { get => pass; set => pass = value; }
         public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
         public string Mail { get => mail; set => mail = value; }
         public string UserName { get => userName; set => userName = value; }
+        public bool IsAdmin { get => isAdmin; set => isAdmin = value; }
     }
 }

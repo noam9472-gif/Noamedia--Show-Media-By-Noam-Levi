@@ -25,6 +25,7 @@ namespace ViewModel
             u.Mail = reader["Mail"].ToString();
             u.UserName = reader["Name"].ToString();
             u.DateOfBirth = (DateTime)reader["DateOfBirth"];
+            u.IsAdmin = (bool)reader["IsAdmin"];
             base.CreateModel(entity);
             return u;
         }
@@ -60,7 +61,7 @@ namespace ViewModel
             User u = entity as User;
             if (u != null)
             {
-                string sqlStr = $"Insert INTO [User] (UserName, DateOfBirth, Mail, Pass, Name) VALUES (@UserName, @DateOfBirth, @Mail, @Pass, @Name)";
+                string sqlStr = $"Insert INTO [User] (UserName, DateOfBirth, Mail, Pass, Name, IsAdmin) VALUES (@UserName, @DateOfBirth, @Mail, @Pass, @Name, @IsAdmin)";
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@UserName", u.UserName));
@@ -68,6 +69,7 @@ namespace ViewModel
                 command.Parameters.Add(new OleDbParameter("@Mail", u.Mail));
                 command.Parameters.Add(new OleDbParameter("@Pass", u.Pass));
                 command.Parameters.Add(new OleDbParameter("@Name", u.Name));
+                command.Parameters.Add(new OleDbParameter("@IsAdmin", u.IsAdmin));
 
             }
         }
@@ -79,7 +81,7 @@ namespace ViewModel
             {
                 string sqlStr = $"UPDATE [User] SET UserName=@UserName," +
                     $" DateOfBirth=@DateOfBirth, Mail=@Mail, Pass=@Pass, Name=@Name" +
-                    $" WHERE ID=@ID";
+                    $" IsAdmin=@IsAdmin WHERE ID=@ID";
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@UserName", u.UserName));
@@ -87,45 +89,9 @@ namespace ViewModel
                 command.Parameters.Add(new OleDbParameter("@Mail", u.Mail));
                 command.Parameters.Add(new OleDbParameter("@Pass", u.Pass));
                 command.Parameters.Add(new OleDbParameter("@Name", u.UserName));
+                command.Parameters.Add(new OleDbParameter("@IsAdmin", u.IsAdmin));
                 command.Parameters.Add(new OleDbParameter("@ID", u.Id));
             }
         }
-
-        //שלב ב
-        //protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    City c = entity as City;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"DELETE FROM CityTbl where id=@pid";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@pid", c.Id));
-        //    }
-        //}
-        //protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    City c = entity as City;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"Insert INTO  CityTbl (CityName) VALUES (@cName)";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.CityName));
-        //    }
-        //}
-
-        //protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    City c = entity as City;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"UPDATE CityTbl  SET CityName=@cName WHERE ID=@id";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.CityName));
-        //        command.Parameters.Add(new OleDbParameter("@id", c.Id));
-        //    }
-        //}
     }
 }
