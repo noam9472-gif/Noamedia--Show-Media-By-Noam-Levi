@@ -174,18 +174,26 @@ namespace ApiInterface
             return allLikes != null && allLikes.Any(l => l.UserId.Id == userId && l.VideoId.Id == videoId);
         }
 
-        public async Task<bool> AddLike(int userId, int videoId)
+        public async Task<bool> AddLike(MyLikes likes)
         {
-            MyLikes like = new MyLikes
+            try
             {
-                UserId = new User { Id = userId },
-                VideoId = new Video { Id = videoId }
-            };
 
-            // שימוש בפורמט שכבר עובד לך בשאר הפונקציות
-            var response = await client.PostAsJsonAsync(uri + "/api/Insert/MyLikesInserter", like);
+                var response = await client.PostAsJsonAsync(uri + "/api/Insert/MyLikesInserter", likes);
 
-            return response.IsSuccessStatusCode;
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    System.Diagnostics.Debug.WriteLine($"API Error: {response.StatusCode} - {error}");
+                }
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Exception in AddLike: {ex.Message}");
+                return false;
+            }
         }
 
         public async Task<bool> RemoveLike(int userId, int videoId)

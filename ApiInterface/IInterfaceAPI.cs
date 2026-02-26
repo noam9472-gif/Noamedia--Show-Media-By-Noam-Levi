@@ -43,7 +43,7 @@ namespace ApiInterface
         Task<int> InsertLike(MyLikes like);
         Task<int> DeleteLike(int id);
         Task<bool> CheckIfUserLikedVideo(int userId, int videoId);
-        Task<bool> AddLike(int userId, int videoId);
+        Task<bool> AddLike(MyLikes like);
         Task<bool> RemoveLike(int userId, int videoId);
         
     }
