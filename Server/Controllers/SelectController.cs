@@ -35,11 +35,10 @@ namespace Movies.API.Controllers
         }
         [HttpGet]
         [ActionName("VideoReviewSelector")]
-        public VideoReviewList SelectAllVideoReviews()
+        public VideoReviewList GetAllReviews()
         {
             VideoReviewDB db = new VideoReviewDB();
-            VideoReviewList videoReviews = db.SelectAll();
-            return videoReviews;
+            return db.SelectAll();
         }
         [HttpGet]
         [ActionName("AgeOfVideoSelector")]

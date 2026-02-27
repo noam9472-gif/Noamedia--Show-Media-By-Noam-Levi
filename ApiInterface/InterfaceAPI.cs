@@ -112,7 +112,17 @@ namespace ApiInterface
         }
         public async Task<VideoReviewList> GetAllVideoReviews()
         {
-            return await client.GetFromJsonAsync<VideoReviewList>(uri + "/api/Select/VideoReviewSelector");
+            try
+            {
+                var result = await client.GetFromJsonAsync<VideoReviewList>($"{uri}/api/Select/VideoReviewSelector");
+                return result ?? new VideoReviewList(); // מחזיר רשימה ריקה במקום null אם אין נתונים
+            }
+            catch (Exception ex)
+            {
+                // הדפסה למסך הדיבוג כדי שתדע מה השתבש
+                System.Diagnostics.Debug.WriteLine("API Error: " + ex.Message);
+                return null;
+            }
         }
         public async Task<int> DeleteVideoReview(int id)
         {
@@ -153,7 +163,8 @@ namespace ApiInterface
 
         public async Task<int> DeleteLike(int id)
         {
-            return (await client.DeleteAsync(uri + $"/api/Delete/MyLikesDeleter/" + id)).IsSuccessStatusCode ? 1 : 0;
+            var response = await client.DeleteAsync($"{uri}/api/Delete/MyLikesDeleter/{id}");
+            return response.IsSuccessStatusCode ? 1 : 0;
         }
 
         // תוסיף את זה בתוך המחלקה InterfaceAPI
@@ -208,6 +219,8 @@ namespace ApiInterface
             }
             return false;
         }
+
+
 
     }
 }

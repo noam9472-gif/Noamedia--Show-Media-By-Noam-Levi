@@ -64,12 +64,15 @@ namespace Movies.API.Controllers
             int z = updb.SaveChanges();
             return z;
         }
-        [HttpDelete]
+        [HttpDelete("{id}")] 
         [ActionName("MyLikesDeleter")]
-        public int DeleteMyLike(MyLikes likeDelete)
+        public int DeleteMyLike(int id) 
         {
-            MyLikesDB mldb = new();
-            mldb.Delete(likeDelete);
+            MyLikesDB mldb = new MyLikesDB();
+
+            MyLikes likeToDelete = new MyLikes { Id = id };
+
+            mldb.Delete(likeToDelete); 
             int z = mldb.SaveChanges();
             return z;
         }
