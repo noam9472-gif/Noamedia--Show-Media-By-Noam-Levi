@@ -46,8 +46,8 @@ namespace ViewModel
                     {
                         ct.VideoPic = "Missing file at: " + fullPath;
                     }
-                
-            }
+
+                }
             }
             return ct;
         }
@@ -124,7 +124,7 @@ namespace ViewModel
 
             if (vP != null)
             {
-                return vP.VideoPic; 
+                return vP.VideoPic;
             }
             return ""; // אם לא נמצא סרט
         }
