@@ -9,15 +9,20 @@ namespace Movies.API.Controllers
     [ApiController]
     public class DeleteController : Controller
     {
-        // GET: DeleteController
-       [HttpDelete]
-       [ActionName("VideoDeleter")]
-        public int DeleteVideo(Video vDelete)
+        [HttpDelete("VideoDeleter/{id}")]
+        public int DeleteVideo(int id)
         {
-            VideoDB vdb = new();
-            vdb.Delete(vDelete);
-            int z = vdb.SaveChanges();
-            return z;
+            try
+            {
+                VideoDB vdb = new();
+                vdb.Delete(new Video { Id = id });
+                return vdb.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Video Delete Error: " + ex.Message);
+                return 0;
+            }
         }
         [HttpDelete("UserDeleter/{id}")]
         public int DeleteUser(int id)
@@ -36,23 +41,31 @@ namespace Movies.API.Controllers
                 return 0;
             }
         }
-        [HttpDelete]
-        [ActionName("GenreDeleter")]
-        public int DeleteGenre(Genre gDelete)
+        [HttpDelete("GenreDeleter/{id}")]
+        public int DeleteGenre(int id)
         {
-            GenreDB gdb = new();
-            gdb.Delete(gDelete);
-            int z = gdb.SaveChanges();
-            return z;
+            try
+            {
+                GenreDB gdb = new();
+                gdb.Delete(new Genre { Id = id });
+                return gdb.SaveChanges();
+            }
+            catch { return 0; }
         }
-        [HttpDelete]
-        [ActionName("VideoReviewDeleter")]
-        public int DeleteVideoReview(VideoReview vrDelete)
+        [HttpDelete("ReviewDeleter/{id}")]
+        public int DeleteReview(int id)
         {
-            VideoReviewDB vrdb = new();
-            vrdb.Delete(vrDelete);
-            int z = vrdb.SaveChanges();
-            return z;
+            try
+            {
+                VideoReviewDB vrdb = new();
+                vrdb.Delete(new VideoReview { Id = id });
+                return vrdb.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Review Delete Error: " + ex.Message);
+                return 0;
+            }
         }
         [HttpDelete]
         [ActionName("AgeOfVideoDeleter")]

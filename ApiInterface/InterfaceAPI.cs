@@ -52,7 +52,9 @@ namespace ApiInterface
         }
         public async Task<int> DeleteVideo(int id)
         {
-            return (await client.DeleteAsync(uri + $"/api/Delete/VideoDeleter/" + id)).IsSuccessStatusCode ? 1 : 0;
+            // משתמשים בנתיב המדויק מה-Swagger: api/Delete/DeleteUser/VideoDeleter
+            var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteUser/VideoDeleter/{id}");
+            return response.IsSuccessStatusCode ? int.Parse(await response.Content.ReadAsStringAsync()) : 0;
         }
         public async Task<int> InsertVideo(Video video)
         {
@@ -68,7 +70,8 @@ namespace ApiInterface
         }
         public async Task<int> DeleteGenre(int id)
         {
-            return (await client.DeleteAsync(uri + $"/api/Delete/GenreDeleter/" + id)).IsSuccessStatusCode ? 1 : 0;
+            var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteUser/GenreDeleter/{id}");
+            return response.IsSuccessStatusCode ? int.Parse(await response.Content.ReadAsStringAsync()) : 0;
         }
         public async Task<int> InsertGenre(Genre Genre)
         {
@@ -151,7 +154,8 @@ namespace ApiInterface
         }
         public async Task<int> DeleteVideoReview(int id)
         {
-            return (await client.DeleteAsync(uri + $"/api/Delete/VideoReviewDeleter/" + id)).IsSuccessStatusCode ? 1 : 0;
+            var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteUser/ReviewDeleter/{id}");
+            return response.IsSuccessStatusCode ? int.Parse(await response.Content.ReadAsStringAsync()) : 0;
         }
         public async Task<int> InsertVideoReview(VideoReview VideoReview)
         {
@@ -274,7 +278,30 @@ namespace ApiInterface
             }
             return false;
         }
+        public async Task<int> ForceClearVideo(int videoId)
+        {
+            try
+            {
+                // 1. מחיקת כל ה-VideoReview של הסרטון הזה
+                var allReviews = await GetAllVideoReviews();
+                var targetReviews = allReviews.Where(r => r.WhichVideoDidTheUserReview?.Id == videoId).ToList();
+                foreach (var review in targetReviews)
+                {
+                    await DeleteVideoReview(review.Id);
+                }
 
+                // 2. מחיקת כל הלייקים (MyLikes) של הסרטון הזה
+                var allLikes = await GetAllLikes();
+                var targetLikes = allLikes.Where(l => l.VideoId?.Id == videoId).ToList();
+                foreach (var like in targetLikes)
+                {
+                    await DeleteLike(like.Id);
+                }
+
+                return 1;
+            }
+            catch { return 0; }
+        }
         public async Task<int> ForceClearUserEverything(int userId)
         {
             try

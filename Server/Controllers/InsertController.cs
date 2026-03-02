@@ -12,13 +12,22 @@ namespace Movies.API.Controllers
 
         // GET: InsertController
         [HttpPost]
-        [ActionName("VideoInserter")]
-        public int InsertVideo([FromBody] Video video)
+        [Route("api/Insert/VideoInserter")]
+        public int AddVideo(Video v)
         {
-            VideoDB vdb = new VideoDB();
-            vdb.Insert(video);
-            int x = vdb.SaveChanges();
-            return x;
+            try
+            {
+                VideoDB vdb = new();
+                vdb.Insert(v);
+                return vdb.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                // זה ידפיס לך בדיוק למה הסרט לא נשמר
+                Console.WriteLine("INSERT ERROR: " + ex.Message);
+                if (ex.InnerException != null) Console.WriteLine("INNER: " + ex.InnerException.Message);
+                return 0;
+            }
         }
         [HttpPost]
         [ActionName("UserInserter")]
