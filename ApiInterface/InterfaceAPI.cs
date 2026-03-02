@@ -78,13 +78,38 @@ namespace ApiInterface
         {
             return (await client.PutAsJsonAsync(uri + "/api/Update/GenreUpdater", Genre)).IsSuccessStatusCode ? 1 : 0;
         }
+        // פונקציה אחת רק בשביל להביא את הרשימה (GET)
         public async Task<UserList> GetAllUsers()
         {
             return await client.GetFromJsonAsync<UserList>(uri + "/api/Select/UserSelector");
         }
+
+        // פונקציה נפרדת רק בשביל המחיקה (DELETE)
         public async Task<int> DeleteUser(int id)
         {
-            return (await client.DeleteAsync(uri + $"/api/Delete/UserDeleter/" + id)).IsSuccessStatusCode ? 1 : 0;
+            try
+            {
+                // הכתובת המדויקת שעבדה ב-Swagger שלך:
+                // שים לב לתוספת של DeleteUser באמצע הנתיב
+                var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteUser/UserDeleter/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsStringAsync();
+                    return int.Parse(result);
+                }
+                else
+                {
+                    // הדפסה לדיבוג כדי לראות איזו שגיאה השרת מחזיר (למשל 404)
+                    System.Diagnostics.Debug.WriteLine($"Error: {response.StatusCode}");
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("WPF Error: " + ex.Message);
+                return 0;
+            }
         }
         public async Task<int> InsertUser(User User)
         {
@@ -207,6 +232,36 @@ namespace ApiInterface
             }
         }
 
+        // תוסיף את זה בתוך המחלקה InterfaceAPI בתוך הקובץ ששלחת
+        public async Task<int> DeleteAllReviewsByUser(int userId)
+        {
+            try
+            {
+                // 1. נשלוף את כל הביקורות הקיימות במערכת
+                VideoReviewList allReviews = await GetAllVideoReviews();
+
+                if (allReviews == null) return 1; // אם אין ביקורות בכלל, הכל תקין
+
+                // 2. נסנן רק את הביקורות ששייכות למשתמש הספציפי
+                var userReviews = allReviews.Where(r => r.WhoUpdatedTheReview != null && r.WhoUpdatedTheReview.Id == userId).ToList();
+
+                // 3. נמחק ביקורת ביקורת
+                foreach (var review in userReviews)
+                {
+                    await DeleteVideoReview(review.Id);
+                }
+
+                return 1; // הצלחה
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error deleting user reviews: " + ex.Message);
+                return 0;
+            }
+        }
+
+
+
         public async Task<bool> RemoveLike(int userId, int videoId)
         {
             // כאן צריך למצוא את ה-ID של הלייק הספציפי כדי למחוק אותו
@@ -220,7 +275,39 @@ namespace ApiInterface
             return false;
         }
 
+        public async Task<int> ForceClearUserEverything(int userId)
+        {
+            try
+            {
+                // 1. ניקוי ביקורות
+                var reviews = await GetAllVideoReviews();
+                if (reviews != null)
+                {
+                    foreach (var r in reviews.Where(x => x.WhoUpdatedTheReview?.Id == userId))
+                        await DeleteVideoReview(r.Id);
+                }
 
+                // 2. ניקוי לייקים
+                var likes = await GetAllLikes();
+                if (likes != null)
+                {
+                    foreach (var l in likes.Where(x => x.UserId?.Id == userId))
+                        await DeleteLike(l.Id);
+                }
+
+                
+
+                // 4. ניקוי פרימיום
+                await DeleteUserPremium(userId);
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Force clear failed: " + ex.Message);
+                return 0;
+            }
+        }
 
     }
 }

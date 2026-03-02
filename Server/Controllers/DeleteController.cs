@@ -19,14 +19,22 @@ namespace Movies.API.Controllers
             int z = vdb.SaveChanges();
             return z;
         }
-        [HttpDelete]
-        [ActionName("UserDeleter")]
-        public int DeleteUser(User uDelete)
+        [HttpDelete("UserDeleter/{id}")]
+        public int DeleteUser(int id)
         {
-            UserDB udb = new();
-            udb.Delete(uDelete);
-            int z = udb.SaveChanges();
-            return z;
+            Console.WriteLine($"Server received ID: {id}");
+            try
+            {
+                UserDB udb = new();
+                User uDelete = new User { Id = id };
+                udb.Delete(uDelete);
+                return udb.SaveChanges(); // יחזיר 1 אם הצליח
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("DB Error: " + ex.Message);
+                return 0;
+            }
         }
         [HttpDelete]
         [ActionName("GenreDeleter")]
