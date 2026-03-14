@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Model;
 using ViewModel;
-using System.Text.Json; 
+using System.Text.Json;
 
 namespace ApiInterface
 {
@@ -52,9 +52,15 @@ namespace ApiInterface
         }
         public async Task<int> DeleteVideo(int id)
         {
-            // משתמשים בנתיב המדויק מה-Swagger: api/Delete/DeleteUser/VideoDeleter
-            var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteUser/VideoDeleter/{id}");
-            return response.IsSuccessStatusCode ? int.Parse(await response.Content.ReadAsStringAsync()) : 0;
+            // תיקון: החלפתי את DeleteUser ב-DeleteVideo כפי שמופיע ב-Swagger שלך
+            var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteVideo/VideoDeleter/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                string result = await response.Content.ReadAsStringAsync();
+                return int.Parse(result);
+            }
+            return 0;
         }
         public async Task<int> InsertVideo(Video video)
         {
@@ -70,8 +76,28 @@ namespace ApiInterface
         }
         public async Task<int> DeleteGenre(int id)
         {
-            var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteUser/GenreDeleter/{id}");
-            return response.IsSuccessStatusCode ? int.Parse(await response.Content.ReadAsStringAsync()) : 0;
+            try
+            {
+                // שימוש בנתיב המדויק מה-Swagger ששלחת בתמונה
+                var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteGenre/DeleteGenre/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsStringAsync();
+                    return int.Parse(result + 1);
+                }
+                else
+                {
+                    // הדפסה לדיבוג במידה וזה עדיין נכשל
+                    System.Diagnostics.Debug.WriteLine($"API Error Genre: {response.StatusCode}");
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("WPF Error Genre: " + ex.Message);
+                return 0;
+            }
         }
         public async Task<int> InsertGenre(Genre Genre)
         {
@@ -154,8 +180,13 @@ namespace ApiInterface
         }
         public async Task<int> DeleteVideoReview(int id)
         {
-            var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteUser/ReviewDeleter/{id}");
-            return response.IsSuccessStatusCode ? int.Parse(await response.Content.ReadAsStringAsync()) : 0;
+            var response = await client.DeleteAsync($"{uri}/api/Delete/ReviewDeleter/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return int.Parse(await response.Content.ReadAsStringAsync());
+            }
+            return 0;
         }
         public async Task<int> InsertVideoReview(VideoReview VideoReview)
         {
@@ -182,7 +213,7 @@ namespace ApiInterface
             return (await client.PutAsJsonAsync(uri + "/api/Update/AgeOfVideoUpdater", AgeOfVideo)).IsSuccessStatusCode ? 1 : 0;
         }
         public async Task<MyLikesList> GetAllLikes()
-        { 
+        {
             return await client.GetFromJsonAsync<MyLikesList>(uri + "/api/Select/MyLikesSelector");
         }
         public async Task<int> InsertLike(MyLikes like)
@@ -263,8 +294,48 @@ namespace ApiInterface
                 return 0;
             }
         }
+        public async Task<int> MoveMoviesBetweenGenres(int fromId, int toId)
+        {
+            try
+            {
+                // שינוי הכתובת לפי ה-Swagger ששלחת: הוספת MoveMovies פעמיים
+                var response = await client.PutAsync($"{uri}/api/Update/MoveMovies/MoveMovies/{fromId}/{toId}", null);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    return int.Parse(content);
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("API ERROR: " + ex.Message);
+                return 0;
+            }
+        }
 
 
+        public async Task<int> UpdateSingleMovieGenre(int videoId, int newGenreId)
+        {
+            try
+            {
+                // שימוש בנתיב הכפול לפי ה-Swagger: api/Update/UpdateMovieGenre/UpdateMovieGenre
+                var response = await client.PutAsync($"{uri}/api/Update/UpdateMovieGenre/UpdateMovieGenre/{videoId}/{newGenreId}", null);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsStringAsync();
+                    return int.Parse(result);
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("API Error (Update Genre): " + ex.Message);
+                return 0;
+            }
+        }
 
         public async Task<bool> RemoveLike(int userId, int videoId)
         {
@@ -322,7 +393,7 @@ namespace ApiInterface
                         await DeleteLike(l.Id);
                 }
 
-                
+
 
                 // 4. ניקוי פרימיום
                 await DeleteUserPremium(userId);
@@ -335,6 +406,7 @@ namespace ApiInterface
                 return 0;
             }
         }
+
 
     }
 }

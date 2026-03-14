@@ -12,8 +12,6 @@ namespace ViewModel
 {
     public abstract class BaseDB
     {
-        //protected static string connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\User\\source\repos\noam9472-gif\\Noamedia--Show-Media-By-Noam-Levi\\ViewModel\\NoamFlix- project netflix Noam Levi 12-71.laccdb";
-
         protected static string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source="
                       + System.IO.Path.GetFullPath(System.Reflection.Assembly.GetExecutingAssembly().Location
                       + "/../../../../../ViewModel/NoamFlix- project netflix Noam Levi 12-71.accdb");
@@ -22,19 +20,15 @@ namespace ViewModel
         protected OleDbCommand command;
         protected OleDbDataReader reader;
 
-        //C:\Users\nativ\Downloads\Exampl_Project\MyWhatApp\VViewModel\ExampleProjectBagrutGrades.accdb
         public BaseDB()
         {
             var x = GetDatabasePath();
-
             connection ??= new OleDbConnection(connectionString);
             command = new OleDbCommand();
             command.Connection = connection;
         }
 
         public abstract BaseEntity NewEntity();
-
-
 
         protected List<BaseEntity> Select()
         {
@@ -57,14 +51,11 @@ namespace ViewModel
             }
             catch (Exception e)
             {
-
-                throw new Exception(
-                    e.Message + "\nSQL:" + command.CommandText);
+                throw new Exception(e.Message + "\nSQL:" + command.CommandText);
             }
             finally
             {
                 if (reader != null) reader.Close();
-                //   if (connection.State == ConnectionState.Open) connection.Close();
             }
             return list;
         }
@@ -82,7 +73,6 @@ namespace ViewModel
                 connection.Open();
                 this.reader = (OleDbDataReader)await command.ExecuteReaderAsync();
 
-
                 while (reader.Read())
                 {
                     BaseEntity entity = NewEntity();
@@ -96,11 +86,9 @@ namespace ViewModel
             finally
             {
                 if (reader != null) reader.Close();
-                //if (connection.State == ConnectionState.Open) connection.Close();
             }
             return list;
         }
-
 
         protected virtual BaseEntity CreateModel(BaseEntity entity)
         {
@@ -110,7 +98,6 @@ namespace ViewModel
 
         protected abstract void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd);
         public static List<ChangeEntity> deleted = new List<ChangeEntity>();
-
 
         public virtual void Delete(BaseEntity entity)
         {
@@ -124,7 +111,6 @@ namespace ViewModel
         protected abstract void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd);
         public static List<ChangeEntity> inserted = new List<ChangeEntity>();
 
-
         public virtual void Insert(BaseEntity entity)
         {
             BaseEntity reqEntity = this.NewEntity();
@@ -136,7 +122,6 @@ namespace ViewModel
 
         protected abstract void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd);
         public static List<ChangeEntity> updated = new List<ChangeEntity>();
-
 
         public virtual void Update(BaseEntity entity)
         {
@@ -155,7 +140,6 @@ namespace ViewModel
             try
             {
                 command.Connection = connection;
-
                 if (connection.State != ConnectionState.Open)
                 {
                     connection.Open();
@@ -167,7 +151,7 @@ namespace ViewModel
                 foreach (var entity in inserted)
                 {
                     command.Parameters.Clear();
-                    entity.CreateSql(entity.Entity, command); //cmd.CommandText = CreateInsertSQL(entity.Entity);
+                    entity.CreateSql(entity.Entity, command);
                     records_affected += command.ExecuteNonQuery();
 
                     command.CommandText = "Select @@Identity";
@@ -177,7 +161,7 @@ namespace ViewModel
                 foreach (var entity in updated)
                 {
                     command.Parameters.Clear();
-                    entity.CreateSql(entity.Entity, command);        //cmd.CommandText = CreateUpdateSQL(entity.Entity);
+                    entity.CreateSql(entity.Entity, command);
                     records_affected += command.ExecuteNonQuery();
                 }
 
@@ -185,7 +169,6 @@ namespace ViewModel
                 {
                     command.Parameters.Clear();
                     entity.CreateSql(entity.Entity, command);
-
                     records_affected += command.ExecuteNonQuery();
                 }
 
@@ -193,23 +176,19 @@ namespace ViewModel
             }
             catch (Exception ex)
             {
-                trans.Rollback();
+                if (trans != null) trans.Rollback();
                 throw new Exception(ex.Message + "\n SQL:" + command.CommandText);
             }
             finally
             {
                 inserted.Clear();
-
                 updated.Clear();
-
                 deleted.Clear();
-
-                //if (connection.State == System.Data.ConnectionState.Open)
-                //    connection.Close();
             }
 
             return records_affected;
         }
+
         public static string GetDatabasePath()
         {
             String[] args = Environment.GetCommandLineArgs();
@@ -222,12 +201,40 @@ namespace ViewModel
             }
             string[] st = s.Split('\\');
             int x = st.Length - 6;
-
             st[x] = "ViewModel";
-
             Array.Resize(ref st, x + 1);
             string str = String.Join('\\', st);
             return str;
+        }
+
+        public int DeleteByCondition(string tableName, string condition)
+        {
+            try
+            {
+                if (connection.State != ConnectionState.Open) connection.Open();
+                OleDbCommand directCommand = new OleDbCommand($"DELETE FROM [{tableName}] WHERE {condition}", connection);
+                return directCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Direct Delete Error in {tableName}: {ex.Message}");
+            }
+        }
+
+        // --- הפונקציה החדשה לטיפול בז'אנרים ---
+        public int UpdateByCondition(string tableName, string setClause, string condition)
+        {
+            try
+            {
+                if (connection.State != ConnectionState.Open) connection.Open();
+                // SQL לדוגמה: UPDATE Videos SET genreId = 1 WHERE genreId = 5
+                OleDbCommand directCommand = new OleDbCommand($"UPDATE [{tableName}] SET {setClause} WHERE {condition}", connection);
+                return directCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Direct Update Error in {tableName}: {ex.Message}");
+            }
         }
     }
 }

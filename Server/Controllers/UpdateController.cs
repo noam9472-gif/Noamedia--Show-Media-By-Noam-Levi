@@ -65,5 +65,20 @@ namespace Movies.API.Controllers
             int x = aovdb.SaveChanges();
             return x;
         }
+        [HttpPut("UpdateMovieGenre/{videoId}/{newGenreId}")]
+        public int UpdateMovieGenre(int videoId, int newGenreId)
+        {
+            try
+            {
+                VideoDB vdb = new VideoDB();
+                // חשוב: וודא שב-Access העמודה בטבלת Video אכן נקראת Genre (עם G גדולה) וה-ID הוא id
+                return vdb.UpdateByCondition("Video", $"Genre = {newGenreId}", $"id = {videoId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Server Error: " + ex.Message);
+                return 0;
+            }
+        }
     }
 }

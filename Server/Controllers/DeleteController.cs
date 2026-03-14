@@ -41,16 +41,26 @@ namespace Movies.API.Controllers
                 return 0;
             }
         }
-        [HttpDelete("GenreDeleter/{id}")]
+        [HttpDelete("DeleteGenre/{id}")]
         public int DeleteGenre(int id)
         {
             try
             {
-                GenreDB gdb = new();
-                gdb.Delete(new Genre { Id = id });
-                return gdb.SaveChanges();
+                VideoDB vdb = new VideoDB();
+
+                vdb.UpdateByCondition("Video", "Genre = 14", $"Genre = {id}");
+
+                Console.WriteLine($"Moved movies from Genre {id} to 14.");
+
+                // 2. מחיקת הז'אנר עצמו מטבלת Genre
+                GenreDB gdb = new GenreDB();
+                return gdb.DeleteByCondition("Genre", $"id = {id}");
             }
-            catch { return 0; }
+            catch (Exception ex)
+            {
+                Console.WriteLine("SERVER ERROR: " + ex.Message);
+                return 0;
+            }
         }
         [HttpDelete("ReviewDeleter/{id}")]
         public int DeleteReview(int id)
@@ -96,6 +106,51 @@ namespace Movies.API.Controllers
             mldb.Delete(likeToDelete); 
             int z = mldb.SaveChanges();
             return z;
+        }
+
+        [HttpDelete("ForceClearUser/{id}")]
+        public int ForceClearUserEverything(int id)
+        {
+            try
+            {
+                // 1. מחיקת ביקורות שהמשתמש כתב
+                // שים לב: בדוק אם שם העמודה ב-Access הוא whoUpdatedTheReview
+                new VideoReviewDB().DeleteByCondition("VideoReviews", $"whoUpdatedTheReview = {id}");
+
+                // 2. מחיקת לייקים של המשתמש
+                new MyLikesDB().DeleteByCondition("MyLikes", $"whoLiked = {id}");
+
+                // 3. מחיקת פרימיום אם קיים
+                new UserPremiumDB().DeleteByCondition("UserPremium", $"userId = {id}");
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ForceClearUser Error: " + ex.Message);
+                return 0;
+            }
+        }
+
+        [HttpDelete("ForceClearVideo/{id}")]
+        public int ForceClearVideo(int id)
+        {
+            try
+            {
+                // 1. מחיקת כל הביקורות על הסרט הספציפי
+                // שים לב: בדוק אם שם העמודה ב-Access הוא whichVideoDidTheUserReview
+                new VideoReviewDB().DeleteByCondition("VideoReviews", $"whichVideoDidTheUserReview = {id}");
+
+                // 2. מחיקת לייקים על הסרט
+                new MyLikesDB().DeleteByCondition("MyLikes", $"whichVideoIsLiked = {id}");
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ForceClearVideo Error: " + ex.Message);
+                return 0;
+            }
         }
     }
 }
