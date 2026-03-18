@@ -62,7 +62,7 @@ namespace Movies.API.Controllers
                 return 0;
             }
         }
-        [HttpDelete("ReviewDeleter/{id}")]
+        [HttpDelete("Review/{id}")] 
         public int DeleteReview(int id)
         {
             try

@@ -178,15 +178,29 @@ namespace ApiInterface
                 return null;
             }
         }
-        public async Task<int> DeleteVideoReview(int id)
+        public async Task<int> DeleteVideoReview(int reviewId)
         {
-            var response = await client.DeleteAsync($"{uri}/api/Delete/ReviewDeleter/{id}");
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                return int.Parse(await response.Content.ReadAsStringAsync());
+                // שיניתי את המילה DeleteReview השנייה ל-Review כדי להתאים ל-Swagger
+                var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteReview/Review/{reviewId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    return int.Parse(content);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"API Error (DeleteReview): {response.StatusCode}");
+                    return 0;
+                }
             }
-            return 0;
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("WPF Error (DeleteReview): " + ex.Message);
+                return 0;
+            }
         }
         public async Task<int> InsertVideoReview(VideoReview VideoReview)
         {
@@ -267,7 +281,6 @@ namespace ApiInterface
             }
         }
 
-        // תוסיף את זה בתוך המחלקה InterfaceAPI בתוך הקובץ ששלחת
         public async Task<int> DeleteAllReviewsByUser(int userId)
         {
             try
@@ -407,6 +420,8 @@ namespace ApiInterface
             }
         }
 
+
+       
 
     }
 }
