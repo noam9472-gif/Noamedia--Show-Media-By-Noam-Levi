@@ -28,6 +28,7 @@ namespace ApiInterface
         public Task<int> DeleteVideoReview(int id);
         public Task<int> InsertVideoReview(VideoReview videoReview);
         public Task<int> UpdateVideoReview(VideoReview videoReview);
+        public Task<List<VideoReview>> GetReviewsByVideoId(int videoId);
 
         public Task<UserPremiumList> GetAllUserPremiums();
         public Task<int> DeleteUserPremium(int id);

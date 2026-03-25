@@ -178,6 +178,18 @@ namespace ApiInterface
                 return null;
             }
         }
+
+        public async Task<List<VideoReview>> GetReviewsByVideoId(int videoId)// פונקציה שמחזירה רק את הביקורות של סרט ספציפי
+        {
+            // משיכת כל הביקורות לסרט הנ"ל
+            VideoReviewList allReviews = await GetAllVideoReviews();
+
+            if (allReviews == null) return new List<VideoReview>();
+
+                // סינון כל הביקורות שלא קשורות לסרט הנ"ל
+                return allReviews.Where(r => r.WhichVideoDidTheUserReview != null &&
+                                         r.WhichVideoDidTheUserReview.Id == videoId).ToList();
+        }
         public async Task<int> DeleteVideoReview(int reviewId)
         {
             try
@@ -241,7 +253,6 @@ namespace ApiInterface
             return response.IsSuccessStatusCode ? 1 : 0;
         }
 
-        // תוסיף את זה בתוך המחלקה InterfaceAPI
         public async Task<bool> IsUserPremium(int id)
         {
             UserPremiumList premiumList = await GetAllUserPremiums();
@@ -249,7 +260,6 @@ namespace ApiInterface
             return premiumList != null && premiumList.Any(p => p.Id == id);
         }
 
-        // בתוך פרויקט ApiInterface -> קובץ InterfaceAPI.cs
 
         public async Task<bool> CheckIfUserLikedVideo(int userId, int videoId)
         {
