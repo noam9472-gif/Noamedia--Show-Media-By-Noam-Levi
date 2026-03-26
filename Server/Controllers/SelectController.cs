@@ -71,5 +71,13 @@ namespace Movies.API.Controllers
             MyLikesList likes = db.SelectAll();
             return likes;
         }
-    }
+        [HttpGet]
+        [ActionName("MyWatchListSelector")]
+        public MyWatchListList SelectAllMyWatchList()
+        {
+            MyWatchListDB db = new MyWatchListDB();
+            MyWatchListList watchList = db.SelectAll();
+            return watchList;
+        }
+        }
 }

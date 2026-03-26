@@ -83,6 +83,14 @@ namespace Movies.API.Controllers
             int x = mldb.SaveChanges();
             return x;
         }
-
+        [HttpPost]
+        [ActionName("MyWatchListInserter")]
+        public int InsertMyWatchList([FromBody] MyWatchList item)
+        {
+            MyWatchListDB mwldb = new MyWatchListDB();
+            mwldb.Insert(item);
+            int x = mwldb.SaveChanges();
+            return x;
+        }
     }
 }

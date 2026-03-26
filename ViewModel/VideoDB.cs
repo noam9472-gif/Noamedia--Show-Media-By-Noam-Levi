@@ -32,6 +32,8 @@ namespace ViewModel
                 ct.VideoAddress = reader["VideoAddress"].ToString();
                 ct.VideoUploadedDate = (DateTime)reader["VideoUploadedDate"];
                 ct.VideoDescription = reader["VideoDescription"]?.ToString() ?? "";
+                ct.IsAdmin = bool.Parse(reader["IsAdmin"].ToString());
+                ct.IsPremium = bool.Parse(reader["IsPremium"].ToString());
 
                 string fileName = reader["VideoPic"]?.ToString() ?? "";
                 if (!string.IsNullOrEmpty(fileName))
@@ -72,7 +74,7 @@ namespace ViewModel
             Video v = entity as Video;
             if (v != null)
             {
-                string sqlStr = $"Insert INTO Video ( VideoUploadedDate , LengthInMinutes , WhoUploadedTheVideo , VideoName , Genre , AgeOfVideo , VideoAddress, VideoDescription, VideoPic) VALUES ( @VideoUploadedDate , @LengthInMinutes , @WhoUploadedTheVideo , @VideoName , @Genre , @AgeOfVideo , @VideoAddress, @VideoDescription, @VideoPic)";
+                string sqlStr = $"Insert INTO Video ( VideoUploadedDate , LengthInMinutes , WhoUploadedTheVideo , VideoName , Genre , AgeOfVideo , VideoAddress, VideoDescription, VideoPic, IsAdmin, IsPremium) VALUES ( @VideoUploadedDate , @LengthInMinutes , @WhoUploadedTheVideo , @VideoName , @Genre , @AgeOfVideo , @VideoAddress, @VideoDescription, @VideoPic, @IsAdmin, @IsPremium)";
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@VideoUploadedDate", v.VideoUploadedDate));
@@ -84,6 +86,8 @@ namespace ViewModel
                 command.Parameters.Add(new OleDbParameter("@VideoAddress", v.VideoAddress));
                 command.Parameters.Add(new OleDbParameter("@VideoDescription", v.VideoDescription));
                 command.Parameters.Add(new OleDbParameter("@VideoPic", v.VideoPic ?? ""));
+                command.Parameters.Add(new OleDbParameter("@IsAdmin", v.IsAdmin));
+                command.Parameters.Add(new OleDbParameter("@IsPremium", v.IsPremium));
             }
         }
 
@@ -92,7 +96,7 @@ namespace ViewModel
             Video v = entity as Video;
             if (v != null)
             {
-                string sqlStr = $"UPDATE Video SET VideoUploadedDate=@VideoUploadedDate, LengthInMinutes=@LengthInMinutes, WhoUploadedTheVideo=@WhoUploadedTheVideo, VideoName=@VideoName, Genre=@Genre, AgeOfVideo=@AgeOfVideo, VideoAddress=@VideoAddress, VideoDescription=@VideoDescription, VideoPic=@VideoPic WHERE ID=@ID";
+                string sqlStr = $"UPDATE Video SET VideoUploadedDate=@VideoUploadedDate, LengthInMinutes=@LengthInMinutes, WhoUploadedTheVideo=@WhoUploadedTheVideo, VideoName=@VideoName, Genre=@Genre, AgeOfVideo=@AgeOfVideo, VideoAddress=@VideoAddress, VideoDescription=@VideoDescription, VideoPic=@VideoPic, IsAdmin=@IsAdmin, IsPremium=@IsPremium WHERE ID=@ID";
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@VideoUploadedDate", v.VideoUploadedDate));
@@ -104,6 +108,8 @@ namespace ViewModel
                 command.Parameters.Add(new OleDbParameter("@VideoAddress", v.VideoAddress));
                 command.Parameters.Add(new OleDbParameter("@VideoDescription", v.VideoDescription));
                 command.Parameters.Add(new OleDbParameter("@VideoPic", v.VideoPic ?? ""));
+                command.Parameters.Add(new OleDbParameter("@IsAdmin", v.IsAdmin));
+                command.Parameters.Add(new OleDbParameter("@IsPremium", v.IsPremium));
                 command.Parameters.Add(new OleDbParameter("@ID", v.Id));
             }
         }

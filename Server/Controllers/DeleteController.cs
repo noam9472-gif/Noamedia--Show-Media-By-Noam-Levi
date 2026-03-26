@@ -107,6 +107,17 @@ namespace Movies.API.Controllers
             int z = mldb.SaveChanges();
             return z;
         }
+        [HttpDelete("{id}")]
+        [ActionName("MyWatchListDeleter")]
+        public int DeleteMyWatchList(int id)
+        {
+            MyWatchListDB mwldb = new MyWatchListDB();
+            MyWatchList watchListToDelete = new MyWatchList { Id = id };
+            mwldb.Delete(watchListToDelete);
+            int z = mwldb.SaveChanges();
+            return z;
+        }
+
 
         [HttpDelete("ForceClearUser/{id}")]
         public int ForceClearUserEverything(int id)

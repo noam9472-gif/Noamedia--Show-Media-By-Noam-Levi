@@ -37,7 +37,7 @@ namespace ApiInterface
 
         public Task<AgeOfVideoList> GetAllAgeOfVideos();
         public Task<int> DeleteAgeOfVideo(int id);
-        public Task<int> InsertAgeOfVideo(AgeOfVideos ageOfVideo);   
+        public Task<int> InsertAgeOfVideo(AgeOfVideos ageOfVideo);
         public Task<int> UpdateAgeOfVideo(AgeOfVideos ageOfVideo);
         Task<string> GetVideoPicByte64(int id);
         Task<MyLikesList> GetAllLikes();
@@ -46,6 +46,9 @@ namespace ApiInterface
         Task<bool> CheckIfUserLikedVideo(int userId, int videoId);
         Task<bool> AddLike(MyLikes like);
         Task<bool> RemoveLike(int userId, int videoId);
-        
+
+        Task<MyWatchListList> GetAllMyWatchList();
+        Task<int> InsertMyWatchList(MyWatchList myWatch);
+        Task<int> DeleteMyWatchLIst(int id);
     }
 }

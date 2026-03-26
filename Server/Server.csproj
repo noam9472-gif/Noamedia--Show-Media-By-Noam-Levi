@@ -51,9 +51,6 @@
     <None Update="Pictures\titanic.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Pictures\Wrestlemania24.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Pictures\Wrestlemania42.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

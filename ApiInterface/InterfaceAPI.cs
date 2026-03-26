@@ -372,6 +372,22 @@ namespace ApiInterface
             }
             return false;
         }
+        public async Task<MyWatchListList> GetAllMyWatchList()
+        {
+            return await client.GetFromJsonAsync<MyWatchListList>(uri + "/api/Select/MyWatchListSelector");
+        }
+        public async Task<int> InsertMyWatchList(MyWatchList like)
+        {
+            return (await client.PostAsJsonAsync(uri + "/api/Insert/MyWatchListInserter", like)).IsSuccessStatusCode ? 1 : 0;
+        }
+
+        public async Task<int> DeleteMyWatchList(int id)
+        {
+            var response = await client.DeleteAsync($"{uri}/api/Delete/MyWatchListDeleter/{id}");
+            return response.IsSuccessStatusCode ? 1 : 0;
+        }
+
+
         public async Task<int> ForceClearVideo(int videoId)
         {
             try
