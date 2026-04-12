@@ -20,14 +20,18 @@ namespace ViewModel
         protected override BaseEntity CreateModel(BaseEntity entity)
         {
             User u = entity as User;
-            u.Name = reader["UserName"].ToString();
-            u.Pass = reader["Pass"].ToString();
-            u.Mail = reader["Mail"].ToString();
-            u.UserName = reader["Name"].ToString();
-            u.DateOfBirth = (DateTime)reader["DateOfBirth"];
-            u.IsAdmin = (bool)reader["IsAdmin"];
-            base.CreateModel(entity);
-            return u;
+            if (u != null)
+            {
+                u.Id = (int)reader["ID"]; // עדכון ה-ID ישר מהרידר
+                u.UserName = reader["UserName"].ToString();
+                u.Pass = reader["Pass"].ToString();
+                u.Mail = reader["Mail"].ToString();
+                u.Name = reader["Name"].ToString();
+                u.DateOfBirth = (DateTime)reader["DateOfBirth"];
+                u.IsAdmin = (bool)reader["IsAdmin"];
+                u.IsPremium = (bool)reader["IsPremium"];
+            }
+            return u; 
         }
         public override BaseEntity NewEntity()
         {
@@ -61,8 +65,8 @@ namespace ViewModel
             User u = entity as User;
             if (u != null)
             {
-                cmd.CommandText = "INSERT INTO [User] ([UserName], [DateOfBirth], [Mail], [Pass], [Name], [IsAdmin]) " +
-                                 "VALUES (?, ?, ?, ?, ?, ?)";
+                cmd.CommandText = "INSERT INTO [User] ([UserName], [DateOfBirth], [Mail], [Pass], [Name], [IsAdmin], [IsPremium]) " +
+                                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
                 cmd.Parameters.Clear();
                 cmd.Parameters.Add("@UserName", OleDbType.VarWChar).Value = u.UserName;
@@ -70,9 +74,9 @@ namespace ViewModel
                 cmd.Parameters.Add("@Mail", OleDbType.VarWChar).Value = u.Mail;
                 cmd.Parameters.Add("@Pass", OleDbType.VarWChar).Value = u.Pass;
                 cmd.Parameters.Add("@Name", OleDbType.VarWChar).Value = u.Name;
-
-                // כאן הקאץ'! וודא שזה Boolean עבור שדה Yes/No ב-Access
                 cmd.Parameters.Add("@IsAdmin", OleDbType.Boolean).Value = u.IsAdmin;
+                cmd.Parameters.Add("@IsPremium", OleDbType.Boolean).Value = u.IsPremium;
+                
             }
         }
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
@@ -81,16 +85,17 @@ namespace ViewModel
             if (u != null)
             {
                 string sqlStr = $"UPDATE [User] SET UserName=@UserName," +
-                $" DateOfBirth=@DateOfBirth, Mail=@Mail, Pass=@Pass, Name=@Name" + // חסר פסיק כאן!
-                $" IsAdmin=@IsAdmin WHERE ID=@ID";
+                $" DateOfBirth=@DateOfBirth, Mail=@Mail, Pass=@Pass, Name=@Name," + 
+                $" IsAdmin=@IsAdmin, IsPremium=@IsPremium WHERE ID=@ID";
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@UserName", u.UserName));
                 command.Parameters.Add(new OleDbParameter("@DateOfBirth", u.DateOfBirth));
                 command.Parameters.Add(new OleDbParameter("@Mail", u.Mail));
                 command.Parameters.Add(new OleDbParameter("@Pass", u.Pass));
-                command.Parameters.Add(new OleDbParameter("@Name", u.UserName));
+                command.Parameters.Add(new OleDbParameter("@Name", u.Name));
                 command.Parameters.Add(new OleDbParameter("@IsAdmin", u.IsAdmin));
+                command.Parameters.Add(new OleDbParameter("@IsPremium", u.IsPremium));
                 command.Parameters.Add(new OleDbParameter("@ID", u.Id));
             }
         }

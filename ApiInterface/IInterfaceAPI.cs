@@ -49,6 +49,6 @@ namespace ApiInterface
 
         Task<MyWatchListList> GetAllMyWatchList();
         Task<int> InsertMyWatchList(MyWatchList myWatch);
-        Task<int> DeleteMyWatchLIst(int id);
+        Task<int> DeleteMyWatchList(int id);
     }
 }
