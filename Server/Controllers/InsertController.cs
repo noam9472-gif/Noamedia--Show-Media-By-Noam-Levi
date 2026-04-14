@@ -92,5 +92,14 @@ namespace Movies.API.Controllers
             int x = mwldb.SaveChanges();
             return x;
         }
+        [HttpPost]
+        [ActionName("MyHistoryInserter")]
+        public int InsertMyHistory([FromBody] MyHistory item)
+        {
+            MyHistoryDB mhdb = new MyHistoryDB();
+            mhdb.Insert(item);
+            int x = mhdb.SaveChanges();
+            return x;
+        }
     }
 }

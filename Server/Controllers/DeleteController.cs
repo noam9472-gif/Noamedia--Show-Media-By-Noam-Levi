@@ -117,7 +117,16 @@ namespace Movies.API.Controllers
             int z = mwldb.SaveChanges();
             return z;
         }
-
+        [HttpDelete("{id}")]
+        [ActionName("MyHistoryDeleter")]
+        public int DeleteMyHistory(int id)
+        {
+            MyHistoryDB mhdb = new MyHistoryDB();
+            MyHistory historyToDelete = new MyHistory { Id = id };
+            mhdb.Delete(historyToDelete);
+            int z = mhdb.SaveChanges();
+            return z;
+        }
 
         [HttpDelete("ForceClearUser/{id}")]
         public int ForceClearUserEverything(int id)

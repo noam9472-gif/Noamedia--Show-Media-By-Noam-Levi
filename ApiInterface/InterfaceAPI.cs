@@ -387,7 +387,55 @@ namespace ApiInterface
             return response.IsSuccessStatusCode ? 1 : 0;
         }
 
+        public async Task<MyHistoryList> GetAllMyHistory()
+        {
+            return await client.GetFromJsonAsync<MyHistoryList>(uri + "/api/Select/MyHistorySelector");
+        }
+        public async Task<int> InsertMyHistory(MyHistory like)
+        {
+            return (await client.PostAsJsonAsync(uri + "/api/Insert/MyHistoryInserter", like)).IsSuccessStatusCode ? 1 : 0;
+        }
 
+        public async Task<int> DeleteMyHistory(int id)
+        {
+            var response = await client.DeleteAsync($"{uri}/api/Delete/MyHistoryDeleter/{id}");
+            return response.IsSuccessStatusCode ? 1 : 0;
+        }
+
+        public async Task<bool> CheckIfUserInWatchList(int userId, int videoId)
+        {
+            // כאן צריכה להיות הקריאה לשרת שלך (Web API או ישירות ל-DB)
+            // דוגמה:
+            var allWatchList = await GetAllMyWatchList();
+            return allWatchList.Any(w => w.UserId.Id == userId && w.VideoId.Id == videoId);
+        }
+
+        public async Task<bool> DeleteMyWatchList(int userId, int videoId)
+        {
+            try
+            {
+                // 1. קודם כל נמצא את ה-ID של הרשומה ב-WatchList כדי שנוכל למחוק אותה
+                var allWatchList = await GetAllMyWatchList();
+                var itemToDelete = allWatchList?.FirstOrDefault(w => w.UserId.Id == userId && w.VideoId.Id == videoId);
+
+                if (itemToDelete != null)
+                {
+                    // 2. נשתמש בנתיב המלא ובפונקציית המחיקה הקיימת שכבר עובדת לך (DeleteMyWatchList המקורית שמקבלת ID)
+                    // שימוש ב-uri ובנתיב ה-api המלא כפי שמופיע בשאר הפונקציות שלך
+                    string fullUrl = $"{uri}/api/Delete/MyWatchListDeleter/{itemToDelete.Id}";
+                    var response = await client.DeleteAsync(fullUrl);
+
+                    return response.IsSuccessStatusCode;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error deleting from watchlist: {ex.Message}");
+                return false;
+            }
+        }
         public async Task<int> ForceClearVideo(int videoId)
         {
             try

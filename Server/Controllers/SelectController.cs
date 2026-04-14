@@ -79,5 +79,13 @@ namespace Movies.API.Controllers
             MyWatchListList watchList = db.SelectAll();
             return watchList;
         }
+        [HttpGet]
+        [ActionName("MyHistorySelector")]
+        public MyHistoryList SelectAllMyHistory()
+        {
+            MyHistoryDB db = new MyHistoryDB();
+            MyHistoryList history = db.SelectAll();
+            return history;
         }
+    }
 }

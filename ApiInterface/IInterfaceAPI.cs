@@ -50,5 +50,15 @@ namespace ApiInterface
         Task<MyWatchListList> GetAllMyWatchList();
         Task<int> InsertMyWatchList(MyWatchList myWatch);
         Task<int> DeleteMyWatchList(int id);
+
+        Task<MyHistoryList> GetAllMyHistory();
+        Task<int> InsertMyHistory(MyHistory myHistory);
+        Task<int> DeleteMyHistory(int id);
+        // בדיקה אם הסרט כבר נמצא ברשימה - מחזיר אמת או שקר
+        Task<bool> CheckIfUserInWatchList(int userId, int videoId);
+
+        // מחיקת סרט מהרשימה לפי מזהה משתמש ומזהה סרט
+        Task<bool> DeleteMyWatchList(int userId, int videoId);
+
     }
 }
