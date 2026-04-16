@@ -62,21 +62,22 @@ namespace ViewModel
                
             }
         }
-      
+
 
         protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
         {
             VideoReview vr = entity as VideoReview;
             if (vr != null)
             {
-                string sqlStr = $"Insert INTO VideoReview ( ID, WhoUpdatedTheReview , WhichVideoDidTheUserReview , ReviewDate , ReviewDescription) VALUES ( @ID, @WhoUpdatedTheReview , @WhichVideoDidTheUserReview , @ReviewDate , @ReviewDescription)";
+                // וודא שהשאילתה לא כוללת את עמודת ה-ID אם היא מסוג מספור אוטומטי
+                cmd.CommandText = "INSERT INTO VideoReview (WhoUpdatedTheReview, WhichVideoDidTheUserReview, ReviewDate, ReviewDescription) VALUES (?, ?, ?, ?)";
+                cmd.Parameters.Clear();
 
-                command.CommandText = sqlStr;
-                command.Parameters.Add(new OleDbParameter("@ID", vr.Id));
-                command.Parameters.Add(new OleDbParameter("@WhoUpdatedTheReview", vr.WhoUpdatedTheReview.Id));
-                command.Parameters.Add(new OleDbParameter("@WhichVideoDidTheUserReview", vr.WhichVideoDidTheUserReview.Id));
-                command.Parameters.Add(new OleDbParameter("@ReviewDate", vr.ReviewDate));
-                command.Parameters.Add(new OleDbParameter("@ReviewDescription", vr.ReviewDescription));
+                // שליחת ה-IDs של האובייקטים (זה מה שמונע את ה-Mismatch)
+                cmd.Parameters.Add(new OleDbParameter("@WhoUpdatedTheReview", vr.WhoUpdatedTheReview.Id));
+                cmd.Parameters.Add(new OleDbParameter("@WhichVideoDidTheUserReview", vr.WhichVideoDidTheUserReview.Id));
+                cmd.Parameters.Add(new OleDbParameter("@ReviewDate", vr.ReviewDate));
+                cmd.Parameters.Add(new OleDbParameter("@ReviewDescription", vr.ReviewDescription));
             }
         }
         //public override void Insert(BaseEntity entity)

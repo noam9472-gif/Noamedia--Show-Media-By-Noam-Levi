@@ -8,10 +8,10 @@ namespace Model
 {
   public class VideoReview : BaseEntity
     {
-        private User whoUpdatedTheReview;
-        private Video whichVideoDidTheUserReview;
-        private DateTime reviewDate;
-        private string reviewDescription;
+        public User whoUpdatedTheReview;
+        public Video whichVideoDidTheUserReview;
+        public DateTime reviewDate;
+        public string reviewDescription;
 
         
         public User WhoUpdatedTheReview { get => whoUpdatedTheReview; set => whoUpdatedTheReview = value; }
