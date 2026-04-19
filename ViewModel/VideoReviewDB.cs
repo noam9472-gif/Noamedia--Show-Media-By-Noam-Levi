@@ -63,21 +63,25 @@ namespace ViewModel
             }
         }
 
-
         protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
         {
             VideoReview vr = entity as VideoReview;
             if (vr != null)
             {
-                // וודא שהשאילתה לא כוללת את עמודת ה-ID אם היא מסוג מספור אוטומטי
+                // 1. הגדרת השאילתה
                 cmd.CommandText = "INSERT INTO VideoReview (WhoUpdatedTheReview, WhichVideoDidTheUserReview, ReviewDate, ReviewDescription) VALUES (?, ?, ?, ?)";
                 cmd.Parameters.Clear();
 
-                // שליחת ה-IDs של האובייקטים (זה מה שמונע את ה-Mismatch)
-                cmd.Parameters.Add(new OleDbParameter("@WhoUpdatedTheReview", vr.WhoUpdatedTheReview.Id));
-                cmd.Parameters.Add(new OleDbParameter("@WhichVideoDidTheUserReview", vr.WhichVideoDidTheUserReview.Id));
-                cmd.Parameters.Add(new OleDbParameter("@ReviewDate", vr.ReviewDate));
-                cmd.Parameters.Add(new OleDbParameter("@ReviewDescription", vr.ReviewDescription));
+                // 2. הוספת הפרמטרים לפי הסדר המדויק של ה-? בשאילתה
+
+                // מזהה המשתמש (חייב להיות מספר)
+                // וודא שאתה שולח את ה-ID (מספר) ולא את האובייקט
+                cmd.Parameters.Add(new OleDbParameter("@Who", vr.WhoUpdatedTheReview.Id));
+                cmd.Parameters.Add(new OleDbParameter("@Which", vr.WhichVideoDidTheUserReview.Id));
+                // תאריך
+                cmd.Parameters.Add("@Date", OleDbType.Date).Value = vr.ReviewDate;
+                // תוכן הביקורת
+                cmd.Parameters.Add(new OleDbParameter("@Desc", vr.ReviewDescription ?? ""));
             }
         }
         //public override void Insert(BaseEntity entity)
@@ -97,6 +101,8 @@ namespace ViewModel
                 string sqlStr = $"UPDATE VideoReview SET ReviewDescription=@ReviewDescription , ReviewDate=@ReviewDate, WhichVideoDidTheUserReview=@WhichVideoDidTheUserReview , WhoUpdatedTheReview=@WhoUpdatedTheReview WHERE ID=@ID";
 
                 command.CommandText = sqlStr;
+                command.Parameters.Clear(); // תמיד כדאי לנקות לפני הוספה!
+
                 command.Parameters.Add(new OleDbParameter("@ReviewDescription", vr.ReviewDescription));
                 command.Parameters.Add(new OleDbParameter("@ReviewDate", vr.ReviewDate));
                 command.Parameters.Add(new OleDbParameter("@WhichVideoDidTheUserReview", vr.WhichVideoDidTheUserReview));
