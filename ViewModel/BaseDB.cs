@@ -97,7 +97,7 @@ namespace ViewModel
         }
 
         protected abstract void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd);
-        public static List<ChangeEntity> deleted = new List<ChangeEntity>();
+        public List<ChangeEntity> deleted = new List<ChangeEntity>();
 
         public virtual void Delete(BaseEntity entity)
         {
@@ -109,7 +109,7 @@ namespace ViewModel
         }
 
         protected abstract void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd);
-        public static List<ChangeEntity> inserted = new List<ChangeEntity>();
+        public List<ChangeEntity> inserted = new List<ChangeEntity>();
 
         public virtual void Insert(BaseEntity entity)
         {
@@ -121,7 +121,7 @@ namespace ViewModel
         }
 
         protected abstract void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd);
-        public static List<ChangeEntity> updated = new List<ChangeEntity>();
+        public List<ChangeEntity> updated  = new List<ChangeEntity>();
 
         public virtual void Update(BaseEntity entity)
         {

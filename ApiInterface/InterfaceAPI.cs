@@ -64,7 +64,16 @@ namespace ApiInterface
         }
         public async Task<int> InsertVideo(Video video)
         {
-            return (await client.PostAsJsonAsync(uri + "/api/Insert/VideoInserter", video)).IsSuccessStatusCode ? 1 : 0;
+            // תשתמש רק בנתיב הסופי שמופיע ב-Swagger (החלק שאחרי ה-Port)
+            var response = await client.PostAsJsonAsync(uri + "/api/Insert/VideoInserter", video);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorDetail = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine("Error: " + errorDetail);
+            }
+
+            return response.IsSuccessStatusCode ? 1 : 0;
         }
         public async Task<int> UpdateVideo(Video video)
         {
@@ -99,9 +108,15 @@ namespace ApiInterface
                 return 0;
             }
         }
-        public async Task<int> InsertGenre(Genre Genre)
+        public async Task<int> InsertGenre(Genre genre)
         {
-            return (await client.PostAsJsonAsync(uri + "/api/Insert/GenreInserter", Genre)).IsSuccessStatusCode ? 1 : 0;
+            var response = await client.PostAsJsonAsync(uri + "/api/Insert/InserterGenre", genre);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return 1;
+            }
+            return 0;
         }
         public async Task<int> UpdateGenre(Genre Genre)
         {
