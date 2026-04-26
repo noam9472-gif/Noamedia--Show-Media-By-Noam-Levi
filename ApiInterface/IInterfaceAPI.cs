@@ -35,10 +35,7 @@ namespace ApiInterface
         public Task<int> InsertUserPremium(UserPremium userPremium);
         public Task<int> UpdateUserPremium(UserPremium userPremium);
 
-        public Task<AgeOfVideoList> GetAllAgeOfVideos();
-        public Task<int> DeleteAgeOfVideo(int id);
-        public Task<int> InsertAgeOfVideo(AgeOfVideos ageOfVideo);
-        public Task<int> UpdateAgeOfVideo(AgeOfVideos ageOfVideo);
+       
         Task<string> GetVideoPicByte64(int id);
         Task<MyLikesList> GetAllLikes();
         Task<int> InsertLike(MyLikes like);

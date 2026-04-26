@@ -78,15 +78,6 @@ namespace Movies.API.Controllers
             }
         }
         [HttpDelete]
-        [ActionName("AgeOfVideoDeleter")]
-        public int DeleteAgeOfVideo(AgeOfVideos aovDelete)
-        {
-            AgeOfVideosDB aovdb = new();
-            aovdb.Delete(aovDelete);
-            int z = aovdb.SaveChanges();
-            return z;
-        }
-        [HttpDelete]
         [ActionName("UserPremiumDeleter")]
         public int DeleteUserPremium(UserPremium upDelete)
         {

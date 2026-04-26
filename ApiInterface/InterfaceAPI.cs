@@ -65,8 +65,7 @@ namespace ApiInterface
         public async Task<int> InsertVideo(Video video)
         {
             // תשתמש רק בנתיב הסופי שמופיע ב-Swagger (החלק שאחרי ה-Port)
-            var response = await client.PostAsJsonAsync(uri + "/api/Insert/VideoInserter", video);
-
+            var response = await client.PostAsJsonAsync(uri + "/api/Insert/AddVideo/api/Insert/VideoInserter", video);
             if (!response.IsSuccessStatusCode)
             {
                 string errorDetail = await response.Content.ReadAsStringAsync();
@@ -237,22 +236,7 @@ namespace ApiInterface
         {
             return (await client.PutAsJsonAsync(uri + "/api/Update/VideoReviewUpdater", VideoReview)).IsSuccessStatusCode ? 1 : 0;
         }
-        public async Task<AgeOfVideoList> GetAllAgeOfVideos()
-        {
-            return await client.GetFromJsonAsync<AgeOfVideoList>(uri + "/api/Select/AgeOfVideoSelector");
-        }
-        public async Task<int> DeleteAgeOfVideo(int id)
-        {
-            return (await client.DeleteAsync(uri + $"/api/Delete/AgeOfVideoDeleter/" + id)).IsSuccessStatusCode ? 1 : 0;
-        }
-        public async Task<int> InsertAgeOfVideo(AgeOfVideos AgeOfVideo)
-        {
-            return (await client.PostAsJsonAsync(uri + "/api/Insert/AgeOfVideoInserter", AgeOfVideo)).IsSuccessStatusCode ? 1 : 0;
-        }
-        public async Task<int> UpdateAgeOfVideo(AgeOfVideos AgeOfVideo)
-        {
-            return (await client.PutAsJsonAsync(uri + "/api/Update/AgeOfVideoUpdater", AgeOfVideo)).IsSuccessStatusCode ? 1 : 0;
-        }
+       
         public async Task<MyLikesList> GetAllLikes()
         {
             return await client.GetFromJsonAsync<MyLikesList>(uri + "/api/Select/MyLikesSelector");

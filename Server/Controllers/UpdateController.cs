@@ -56,15 +56,6 @@ namespace Movies.API.Controllers
             int x = vrdb.SaveChanges();
             return x;
         }
-        [HttpPut]
-        [ActionName("AgeOfVideoUpdater")]
-        public int UpdateAgeOfAgeOfVideo([FromBody] AgeOfVideos ageOfVideo)
-        {
-            AgeOfVideosDB aovdb = new AgeOfVideosDB();
-            aovdb.Update(ageOfVideo);
-            int x = aovdb.SaveChanges();
-            return x;
-        }
         [HttpPut("UpdateMovieGenre/{videoId}/{newGenreId}")]
         public int UpdateMovieGenre(int videoId, int newGenreId)
         {

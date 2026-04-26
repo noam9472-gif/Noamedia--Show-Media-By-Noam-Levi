@@ -26,7 +26,6 @@ namespace ViewModel
                 ct.Id = int.Parse(reader["ID"].ToString());
                 ct.VideoName = reader["VideoName"].ToString();
                 ct.LengthInMinutes = int.Parse(reader["LengthInMinutes"].ToString());
-                ct.AgeOfVideo = AgeOfVideosDB.SelectById((int)reader["AgeOfVideo"]);
                 ct.WhoUploadedTheVideo = UserDB.SelectById((int)reader["WhoUploadedTheVideo"]);
                 ct.Genre = GenreDB.SelectById((int)reader["Genre"]);
                 ct.VideoAddress = reader["VideoAddress"].ToString();
@@ -73,19 +72,21 @@ namespace ViewModel
             Video v = entity as Video;
             if (v != null)
             {
-                string sqlStr = $"Insert INTO Video ( VideoUploadedDate , LengthInMinutes , WhoUploadedTheVideo , VideoName , Genre , AgeOfVideo , VideoAddress, VideoDescription, VideoPic) VALUES ( @VideoUploadedDate , @LengthInMinutes , @WhoUploadedTheVideo , @VideoName , @Genre , @AgeOfVideo , @VideoAddress, @VideoDescription, @VideoPic)";
+                string sqlStr = "INSERT INTO Video (VideoUploadedDate, LengthInMinutes, WhoUploadedTheVideo, VideoName, Genre, VideoAddress, VideoDescription, VideoPic) " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-                command.CommandText = sqlStr;
-                command.Parameters.Add(new OleDbParameter("@VideoUploadedDate", v.VideoUploadedDate));
-                command.Parameters.Add(new OleDbParameter("@LengthInMinutes", v.LengthInMinutes));
-                command.Parameters.Add(new OleDbParameter("@WhoUploadedTheVideo", v.WhoUploadedTheVideo.Id));
-                command.Parameters.Add(new OleDbParameter("@VideoName", v.VideoName));
-                command.Parameters.Add(new OleDbParameter("@Genre", v.Genre.Id));
-                command.Parameters.Add(new OleDbParameter("@AgeOfVideo", v.AgeOfVideo.Id));
-                command.Parameters.Add(new OleDbParameter("@VideoAddress", v.VideoAddress));
-                command.Parameters.Add(new OleDbParameter("@VideoDescription", v.VideoDescription));
-                command.Parameters.Add(new OleDbParameter("@VideoPic", v.VideoPic ?? ""));
-                
+                cmd.CommandText = sqlStr;
+                cmd.Parameters.Clear();
+
+                // הגדרה מפורשת של סוגי הנתונים
+                cmd.Parameters.Add("@VideoUploadedDate", OleDbType.Date).Value = v.VideoUploadedDate;
+                cmd.Parameters.Add("@LengthInMinutes", OleDbType.Integer).Value = v.LengthInMinutes;
+                cmd.Parameters.Add("@WhoUploadedTheVideo", OleDbType.Integer).Value = v.WhoUploadedTheVideo.Id;
+                cmd.Parameters.Add("@VideoName", OleDbType.VarWChar).Value = v.VideoName ?? "";
+                cmd.Parameters.Add("@Genre", OleDbType.Integer).Value = v.Genre.Id;
+                cmd.Parameters.Add("@VideoAddress", OleDbType.VarWChar).Value = v.VideoAddress ?? "";
+                cmd.Parameters.Add("@VideoDescription", OleDbType.VarWChar).Value = v.VideoDescription ?? "";
+                cmd.Parameters.Add("@VideoPic", OleDbType.LongVarWChar).Value = v.VideoPic ?? "";
             }
         }
 
@@ -94,7 +95,7 @@ namespace ViewModel
             Video v = entity as Video;
             if (v != null)
             {
-                string sqlStr = $"UPDATE Video SET VideoUploadedDate=@VideoUploadedDate, LengthInMinutes=@LengthInMinutes, WhoUploadedTheVideo=@WhoUploadedTheVideo, VideoName=@VideoName, Genre=@Genre, AgeOfVideo=@AgeOfVideo, VideoAddress=@VideoAddress, VideoDescription=@VideoDescription, VideoPic=@VideoPic WHERE ID=@ID";
+                string sqlStr = $"UPDATE Video SET VideoUploadedDate=@VideoUploadedDate, LengthInMinutes=@LengthInMinutes, WhoUploadedTheVideo=@WhoUploadedTheVideo, VideoName=@VideoName, Genre=@Genre, VideoAddress=@VideoAddress, VideoDescription=@VideoDescription, VideoPic=@VideoPic WHERE ID=@ID";
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@VideoUploadedDate", v.VideoUploadedDate));
@@ -102,7 +103,6 @@ namespace ViewModel
                 command.Parameters.Add(new OleDbParameter("@WhoUploadedTheVideo", v.WhoUploadedTheVideo.Id));
                 command.Parameters.Add(new OleDbParameter("@VideoName", v.VideoName));
                 command.Parameters.Add(new OleDbParameter("@Genre", v.Genre.Id));
-                command.Parameters.Add(new OleDbParameter("@AgeOfVideo", v.AgeOfVideo.Id));
                 command.Parameters.Add(new OleDbParameter("@VideoAddress", v.VideoAddress));
                 command.Parameters.Add(new OleDbParameter("@VideoDescription", v.VideoDescription));
                 command.Parameters.Add(new OleDbParameter("@VideoPic", v.VideoPic ?? ""));

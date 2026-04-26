@@ -66,15 +66,6 @@ namespace Movies.API.Controllers
             return x;
         }
         [HttpPost]
-        [ActionName("AgeOfVideoInserter")]
-        public int InsertAgeOfVideo([FromBody] AgeOfVideos ageOfVideo)
-        {
-            AgeOfVideosDB aovdb = new AgeOfVideosDB();
-            aovdb.Insert(ageOfVideo);
-            int x = aovdb.SaveChanges();
-            return x;
-        }
-        [HttpPost]
         [ActionName("MyLikesInserter")]
         public int InsertMyLike([FromBody] MyLikes like)
         {

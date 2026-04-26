@@ -41,14 +41,6 @@ namespace Movies.API.Controllers
             return db.SelectAll();
         }
         [HttpGet]
-        [ActionName("AgeOfVideoSelector")]
-        public AgeOfVideoList SelectAllAgeOfVideos()
-        {
-            AgeOfVideosDB db = new AgeOfVideosDB();
-            AgeOfVideoList ageOfVideos = db.SelectAll();
-            return ageOfVideos;
-        }
-        [HttpGet]
         [ActionName("UserPremiumSelector")]
         public UserPremiumList SelectAllUserPremiums()
         {

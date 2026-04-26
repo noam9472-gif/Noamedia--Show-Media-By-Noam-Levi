@@ -88,15 +88,7 @@ internal class Program
         //        vdb.Update(vUpdate);
         //        int x = vdb.SaveChanges();
         //        Console.WriteLine($"Updated rows: {x}");
-        //        AgeOfVideosDB aovdb = new();
-        //        AgeOfVideoList aovList = aovdb.SelectAll();
-        //        foreach (AgeOfVideos aov in aovList)
-        //            Console.WriteLine(aov.Description);
 
-        //AgeOfVideosDB aovdb = new();
-        //AgeOfVideoList aovList = aovdb.SelectAll();
-        //foreach (AgeOfVideos aov in aovList)
-        //    Console.WriteLine(aov.Description);
 
         //Console.WriteLine();
         //Video vInsert = new Video();
@@ -105,7 +97,6 @@ internal class Program
         //vInsert.VideoUploadedDate = new DateTime(2023, 12, 21);
         //vInsert.WhoUploadedTheVideo = cList[0];
         //vInsert.Genre = gList[0];
-        //vInsert.AgeOfVideo = aovList[0];
         //vInsert.VideoAddress = "It";
         //vdb.Insert(vInsert);
         //int y = vdb.SaveChanges();
@@ -150,36 +141,6 @@ internal class Program
         //Console.WriteLine($"{z} rows were deleted");
         //foreach (VideoReview vr in vrList)
         //    Console.WriteLine(vr);
-        //Console.WriteLine();
-        #endregion
-
-        #region AgeOfVideos
-        //        טבלת AgeOfVideos
-        //AgeOfVideosDB aovdb = new();
-        //AgeOfVideoList aovList = aovdb.SelectAll();
-        //foreach (AgeOfVideos aov in aovList)
-        //    Console.WriteLine(aov.Description);
-
-        //        Console.WriteLine();
-        //        AgeOfVideos aovUpdate = aovList[0];
-        //        aovUpdate.Description = "Age Description Updates Successfully";
-        //        aovdb.Update(aovUpdate);
-        //        int x = aovdb.SaveChanges();
-        //        Console.WriteLine($"Updated rows: {x}");
-
-        //Console.WriteLine();
-        //AgeOfVideos aovInsert = new AgeOfVideos();
-        //aovInsert.Description = "all ages";
-        //aovdb.Insert(aovInsert);
-        //int y = aovdb.SaveChanges();
-        //Console.WriteLine($"Inserted rows: {y}");
-
-        //AgeOfVideos aovDelete = aovList.Last();
-        //aovdb.Delete(aovDelete);
-        //int z = aovdb.SaveChanges();
-        //Console.WriteLine($"{z} rows were deleted");
-        //foreach (AgeOfVideos aov in aovList)
-        //    Console.WriteLine(aov);
         //Console.WriteLine();
         #endregion
 
@@ -293,19 +254,5 @@ internal class Program
         //await api.UpdateUserPremium(myUserPremium);
         #endregion
 
-        #region AgeOfVideoAPI
-        InterfaceAPI api = new();
-        AgeOfVideoList AgeOfVIdeos = await api.GetAllAgeOfVideos();
-        Console.WriteLine(AgeOfVIdeos.Count);
-        int id = AgeOfVIdeos.Last().Id;
-        await api.DeleteAgeOfVideo(id);
-        Console.WriteLine(AgeOfVIdeos.Count);
-
-        AgeOfVideos g1 = new AgeOfVideos() { Description = "84+" };
-        await api.InsertAgeOfVideo(g1);
-        AgeOfVideos myAgeOfVIdeo = AgeOfVIdeos.First();
-        myAgeOfVIdeo.Description = "63+";
-        await api.UpdateAgeOfVideo(myAgeOfVIdeo);
-        #endregion
     }
 }

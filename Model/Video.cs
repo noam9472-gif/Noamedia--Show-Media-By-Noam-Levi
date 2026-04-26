@@ -14,7 +14,6 @@ namespace Model
         private User whoUploadedTheVideo;
         private string videoName;
         private Genre genre;
-        private AgeOfVideos ageOfVideo;
         private string videoAddress;
         private string videoDescription;
         private string videoPic;
@@ -26,7 +25,6 @@ namespace Model
         public User WhoUploadedTheVideo { get => whoUploadedTheVideo; set => whoUploadedTheVideo = value; }
         public string VideoName { get => videoName; set => videoName = value; }
         public Genre Genre { get => genre; set => genre = value; }
-        public AgeOfVideos AgeOfVideo { get => ageOfVideo; set => ageOfVideo = value; }
         public string VideoAddress { get => videoAddress; set => videoAddress = value; }
         public string VideoDescription { get => videoDescription; set => videoDescription = value; }
         public string VideoPic { get => videoPic; set => videoPic = value; }
