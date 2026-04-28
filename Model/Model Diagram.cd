@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Model.BaseEntity" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>BaseEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Genre" Collapsed="true">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Genre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.GenreList" Collapsed="true">
+    <Position X="8.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GenreList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MyHistory" Collapsed="true">
+    <Position X="15" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAgAAIAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>MyHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MyHistoryList" Collapsed="true">
+    <Position X="10.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MyHistoryList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MyLikes" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAgAAIAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>MyLikes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MyLikesList" Collapsed="true">
+    <Position X="12" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MyLikesList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MyWatchList" Collapsed="true">
+    <Position X="12.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAgAAIAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>MyWatchList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.MyWatchListList" Collapsed="true">
+    <Position X="8.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MyWatchListList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.User" Collapsed="true">
+    <Position X="19.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAQAAAAEAAAAAAQAKAAUACgAAQAAAQEAAAE=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.UserList" Collapsed="true">
+    <Position X="10.25" Y="6" Width="1.5" />
+    <InheritanceLine Type="System.Collections.Generic.List&lt;T&gt;" FixedFromPoint="true">
+      <Path>
+        <Point X="14.5" Y="4.062" />
+        <Point X="14.654" Y="4.062" />
+        <Point X="14.654" Y="5.846" />
+        <Point X="13.833" Y="5.846" Type="JumpStart" />
+        <Point X="13.667" Y="5.846" Type="JumpEnd" />
+        <Point X="11" Y="5.846" />
+        <Point X="11" Y="6" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.UserPremium" Collapsed="true">
+    <Position X="19.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserPremium.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.UserPremiumList" Collapsed="true">
+    <Position X="12" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserPremiumList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Video" Collapsed="true">
+    <Position X="17.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQCAACEAAAAgiAAgAAIAIAACKAAAACgAAAAggACAgIA=</HashCode>
+      <FileName>Video.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.VideoList" Collapsed="true">
+    <Position X="8.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VideoList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.VideoReview" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQQAAgAAAAAAAAAABBAAAwAAAAAAABAAAA=</HashCode>
+      <FileName>VideoReview.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.VideoReviewList" Collapsed="true">
+    <Position X="10.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VideoReviewList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Collections.Generic.List&lt;T&gt;" Collapsed="true">
+    <Position X="13" Y="3.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Orientation="Right" Position="0.1" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
