@@ -44,7 +44,7 @@ namespace ViewModel
             Genre g = entity as Genre;
             if (g != null)
             {
-                command.Parameters.Clear(); // חשוב!
+                command.Parameters.Clear(); 
                 command.CommandText = "DELETE FROM Genre WHERE ID=@ID";
                 command.Parameters.Add(new OleDbParameter("@ID", g.Id));
             }
@@ -56,7 +56,7 @@ namespace ViewModel
             if (g != null)
             {
                 cmd.Parameters.Clear();
-                cmd.CommandText = "INSERT INTO Genre ([GenreDescription]) VALUES (?)";
+                cmd.CommandText = "INSERT INTO Genre ([GenreDescription]) VALUES (?)"; 
                 cmd.Parameters.Add(new OleDbParameter("?", g.GenreDescription));
             }
         }
@@ -66,9 +66,9 @@ namespace ViewModel
             Genre g = entity as Genre;
             if (g != null)
             {
-                command.Parameters.Clear(); // ניקוי
+                command.Parameters.Clear(); 
 
-                string sqlStr = "UPDATE Genre SET Genredescription = ? WHERE ID = ?";
+                string sqlStr = "UPDATE Genre SET Genredescription = ? WHERE ID = ?"; 
 
                 command.CommandText = sqlStr;
                 command.Parameters.Add(new OleDbParameter("@Genredescription", g.GenreDescription));

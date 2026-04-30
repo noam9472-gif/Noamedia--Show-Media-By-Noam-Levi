@@ -52,7 +52,7 @@ namespace Movies.API.Controllers
 
                 Console.WriteLine($"Moved movies from Genre {id} to 14.");
 
-                // 2. מחיקת הז'אנר עצמו מטבלת Genre
+                //  מחיקת הז'אנר עצמו מטבלת Genre
                 GenreDB gdb = new GenreDB();
                 return gdb.DeleteByCondition("Genre", $"id = {id}");
             }
@@ -124,14 +124,13 @@ namespace Movies.API.Controllers
         {
             try
             {
-                // 1. מחיקת ביקורות שהמשתמש כתב
-                // שים לב: בדוק אם שם העמודה ב-Access הוא whoUpdatedTheReview
+                //  מחיקת ביקורות שהמשתמש כתב
                 new VideoReviewDB().DeleteByCondition("VideoReviews", $"whoUpdatedTheReview = {id}");
 
-                // 2. מחיקת לייקים של המשתמש
+                //  מחיקת לייקים של המשתמש
                 new MyLikesDB().DeleteByCondition("MyLikes", $"whoLiked = {id}");
 
-                // 3. מחיקת פרימיום אם קיים
+                //  מחיקת פרימיום אם קיים
                 new UserPremiumDB().DeleteByCondition("UserPremium", $"userId = {id}");
 
                 return 1;
@@ -148,11 +147,10 @@ namespace Movies.API.Controllers
         {
             try
             {
-                // 1. מחיקת כל הביקורות על הסרט הספציפי
-                // שים לב: בדוק אם שם העמודה ב-Access הוא whichVideoDidTheUserReview
+                // מחיקת כל הביקורות על הסרט הספציפי
                 new VideoReviewDB().DeleteByCondition("VideoReviews", $"whichVideoDidTheUserReview = {id}");
 
-                // 2. מחיקת לייקים על הסרט
+                //  מחיקת לייקים על הסרט
                 new MyLikesDB().DeleteByCondition("MyLikes", $"whichVideoIsLiked = {id}");
 
                 return 1;

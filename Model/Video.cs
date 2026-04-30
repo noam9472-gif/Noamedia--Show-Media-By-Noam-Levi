@@ -17,9 +17,7 @@ namespace Model
         private string videoAddress;
         private string videoDescription;
         private string videoPic;
-        private bool isAdmin;
-        private bool isPremium;
-
+     
         public DateTime VideoUploadedDate { get => videoUploadedDate; set => videoUploadedDate = value; }
         public int LengthInMinutes { get => lengthInMinutes; set => lengthInMinutes = value; }
         public User WhoUploadedTheVideo { get => whoUploadedTheVideo; set => whoUploadedTheVideo = value; }
@@ -28,7 +26,5 @@ namespace Model
         public string VideoAddress { get => videoAddress; set => videoAddress = value; }
         public string VideoDescription { get => videoDescription; set => videoDescription = value; }
         public string VideoPic { get => videoPic; set => videoPic = value; }
-        public bool IsAdmin { get => isAdmin; set => isAdmin = value; }
-        public bool IsPremium { get => isPremium; set => isPremium = value; }
     }
 }

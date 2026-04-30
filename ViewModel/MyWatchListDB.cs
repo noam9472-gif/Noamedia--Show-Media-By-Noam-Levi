@@ -38,7 +38,7 @@ namespace ViewModel
             MyWatchList aov = entity as MyWatchList;
             if (aov != null && aov.UserId != null && aov.VideoId != null)
             {
-                cmd.CommandText = "INSERT INTO MyWatchList (UserId, VideoId) VALUES (@UserId, @VideoId)";
+                cmd.CommandText = "INSERT INTO MyWatchList (UserId, VideoId) VALUES (@UserId, @VideoId)"; // 
                 cmd.Parameters.Add(new OleDbParameter("@UserId", aov.UserId.Id));
                 cmd.Parameters.Add(new OleDbParameter("@VideoId", aov.VideoId.Id));
             }

@@ -10,7 +10,6 @@ namespace Movies.API.Controllers
     [ApiController]
     public class UpdateController : Controller
     {
-        // GET: UpdateController
         [HttpPut]
         [ActionName("VideoUpdater")]
         public int UpdateVideo([FromBody] Video video)
@@ -62,7 +61,6 @@ namespace Movies.API.Controllers
             try
             {
                 VideoDB vdb = new VideoDB();
-                // חשוב: וודא שב-Access העמודה בטבלת Video אכן נקראת Genre (עם G גדולה) וה-ID הוא id
                 return vdb.UpdateByCondition("Video", $"Genre = {newGenreId}", $"id = {videoId}");
             }
             catch (Exception ex)

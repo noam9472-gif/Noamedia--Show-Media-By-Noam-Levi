@@ -18,7 +18,7 @@ namespace ViewModel
         protected static OleDbConnection connection;
         protected OleDbCommand command;
         protected OleDbDataReader reader;
-        protected static OleDbTransaction currentTransaction; // הוספנו משתנה שיזכור את הטרנזקציה
+        protected static OleDbTransaction currentTransaction; 
 
         public BaseDB()
         {
@@ -29,7 +29,7 @@ namespace ViewModel
 
         public abstract BaseEntity NewEntity();
 
-        protected List<BaseEntity> Select()
+        protected List<BaseEntity> Select() 
         {
             List<BaseEntity> list = new List<BaseEntity>();
             try
@@ -37,7 +37,6 @@ namespace ViewModel
                 if (connection.State != ConnectionState.Open) connection.Open();
 
                 command.Connection = connection;
-                // תיקון: אם יש טרנזקציה פתוחה, חייבים לשייך אותה לפקודה
                 command.Transaction = currentTransaction;
 
                 reader = command.ExecuteReader();
@@ -59,10 +58,9 @@ namespace ViewModel
             return list;
         }
 
-        protected async Task<List<BaseEntity>> SelectAsync(string sqlStr)
+        protected async Task<List<BaseEntity>> SelectAsync(string sqlStr) // פונקציה אסינכרונית לביצוע שאילתות קריאה, שימושית במיוחד לשאילתות ארוכות או כבדות
         {
             List<BaseEntity> list = new List<BaseEntity>();
-            // ב-Async מומלץ ליצור חיבור חדש כדי למנוע התנגשויות
             using (OleDbConnection localConn = new OleDbConnection(connectionString))
             {
                 using (OleDbCommand localCmd = new OleDbCommand(sqlStr, localConn))
@@ -122,7 +120,7 @@ namespace ViewModel
         protected abstract void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd);
         public List<ChangeEntity> updated = new List<ChangeEntity>();
 
-        public int SaveChanges()
+        public int SaveChanges() // פונקציה מרכזית שמבצעת את כל השינויים בטרנזקציה אחת
         {
             int records_affected = 0;
             try
@@ -181,7 +179,7 @@ namespace ViewModel
             return records_affected;
         }
 
-        public int DeleteByCondition(string tableName, string condition)
+        public int DeleteByCondition(string tableName, string condition) // שימושי למחיקות מרובות לפי תנאי מסוים
         {
             try
             {
@@ -193,7 +191,7 @@ namespace ViewModel
             catch (Exception ex) { throw new Exception(ex.Message); }
         }
 
-        public int UpdateByCondition(string tableName, string setClause, string condition)
+        public int UpdateByCondition(string tableName, string setClause, string condition) 
         {
             try
             {
@@ -205,6 +203,6 @@ namespace ViewModel
             catch (Exception ex) { throw new Exception(ex.Message); }
         }
 
-        public static string GetDatabasePath() { /* הקוד שלך ללא שינוי */ return ""; }
+        public static string GetDatabasePath() { return ""; }
     }
 }

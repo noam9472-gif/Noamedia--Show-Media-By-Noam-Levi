@@ -73,12 +73,11 @@ namespace ViewModel
             if (v != null)
             {
                 string sqlStr = "INSERT INTO Video (VideoUploadedDate, LengthInMinutes, WhoUploadedTheVideo, VideoName, Genre, VideoAddress, VideoDescription, VideoPic) " +
-                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; // שימוש ב-? במקום שמות הפרמטרים
 
                 cmd.CommandText = sqlStr;
                 cmd.Parameters.Clear();
 
-                // הגדרה מפורשת של סוגי הנתונים
                 cmd.Parameters.Add("@VideoUploadedDate", OleDbType.Date).Value = v.VideoUploadedDate;
                 cmd.Parameters.Add("@LengthInMinutes", OleDbType.Integer).Value = v.LengthInMinutes;
                 cmd.Parameters.Add("@WhoUploadedTheVideo", OleDbType.Integer).Value = v.WhoUploadedTheVideo.Id;

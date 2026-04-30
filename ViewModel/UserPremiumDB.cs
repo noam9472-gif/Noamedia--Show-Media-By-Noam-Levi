@@ -14,7 +14,7 @@ namespace ViewModel
         {
             command.CommandText = "SELECT UserPremium.ID, UserPremium.IdentityCard, " +
     "[User].UserName, [User].DateOfBirth, [User].Mail, [User].Pass, " +
-    "[User].Name, [User].IsAdmin, [User].IsPremium " + // הוספנו את השדה החסר כאן
+    "[User].Name, [User].IsAdmin, [User].IsPremium " + 
     "FROM (UserPremium INNER JOIN [User] ON UserPremium.ID = [User].ID)";
             UserPremiumList groupList = new UserPremiumList(base.Select());
             return groupList;
@@ -107,42 +107,5 @@ namespace ViewModel
                 command.Parameters.Add(new OleDbParameter("@ID", ur.Id));
             }
         }
-
-        //שלב ב
-        //protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    City c = entity as City;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"DELETE FROM CityTbl where id=@pid";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@pid", c.Id));
-        //    }
-        //}
-        //protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    UserPremium ur = entity as UserPremium;
-        //    if (ur != null)
-        //    {
-        //        string sqlStr = $"Insert INTO  UserPremium (IdentityCard) VALUES (@IdentityCard)";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@IdentityCard", ur.IdentityCard));
-        //    }
-        //}
-
-        //protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    City c = entity as City;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"UPDATE CityTbl  SET CityName=@cName WHERE ID=@id";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.CityName));
-        //        command.Parameters.Add(new OleDbParameter("@id", c.Id));
-        //    }
-        //}
     }
 }

@@ -42,15 +42,6 @@ namespace ViewModel
             return g;
         }
 
-        //public override void Delete(BaseEntity entity)
-        //{
-        //    BaseEntity reqEntity = this.NewEntity();
-        //    if (entity != null & entity.GetType() == reqEntity.GetType())
-        //    {
-        //        deleted.Add(new ChangeEntity(base.CreateDeletedSQL, entity));
-        //        deleted.Add(new ChangeEntity(this.CreateDeletedSQL, entity));
-        //    }
-        //}
         protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
         {
             VideoReview vr = entity as VideoReview;
@@ -68,31 +59,17 @@ namespace ViewModel
             VideoReview vr = entity as VideoReview;
             if (vr != null)
             {
-                // 1. הגדרת השאילתה
                 cmd.CommandText = "INSERT INTO VideoReview (WhoUpdatedTheReview, WhichVideoDidTheUserReview, ReviewDate, ReviewDescription) VALUES (?, ?, ?, ?)";
                 cmd.Parameters.Clear();
 
-                // 2. הוספת הפרמטרים לפי הסדר המדויק של ה-? בשאילתה
 
-                // מזהה המשתמש (חייב להיות מספר)
-                // וודא שאתה שולח את ה-ID (מספר) ולא את האובייקט
                 cmd.Parameters.Add(new OleDbParameter("@Who", vr.WhoUpdatedTheReview.Id));
                 cmd.Parameters.Add(new OleDbParameter("@Which", vr.WhichVideoDidTheUserReview.Id));
-                // תאריך
                 cmd.Parameters.Add("@Date", OleDbType.Date).Value = vr.ReviewDate;
-                // תוכן הביקורת
                 cmd.Parameters.Add(new OleDbParameter("@Desc", vr.ReviewDescription ?? ""));
             }
         }
-        //public override void Insert(BaseEntity entity)
-        //{
-        //    BaseEntity reqEntity = this.NewEntity();
-        //    if (entity != null & entity.GetType() == reqEntity.GetType())
-        //    {
-        //        inserted.Add(new ChangeEntity(base.CreateInsertdSQL, entity));
-        //        inserted.Add(new ChangeEntity(this.CreateInsertdSQL, entity));
-        //    }
-        //}
+     
         protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
         {
             VideoReview vr = entity as VideoReview;
@@ -101,7 +78,7 @@ namespace ViewModel
                 string sqlStr = $"UPDATE VideoReview SET ReviewDescription=@ReviewDescription , ReviewDate=@ReviewDate, WhichVideoDidTheUserReview=@WhichVideoDidTheUserReview , WhoUpdatedTheReview=@WhoUpdatedTheReview WHERE ID=@ID";
 
                 command.CommandText = sqlStr;
-                command.Parameters.Clear(); // תמיד כדאי לנקות לפני הוספה!
+                command.Parameters.Clear(); 
 
                 command.Parameters.Add(new OleDbParameter("@ReviewDescription", vr.ReviewDescription));
                 command.Parameters.Add(new OleDbParameter("@ReviewDate", vr.ReviewDate));
@@ -110,41 +87,5 @@ namespace ViewModel
                 command.Parameters.Add(new OleDbParameter("@ID", vr.Id));
             }
         }
-        //שלב ב
-        //protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    City c = entity as City;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"DELETE FROM CityTbl where id=@pid";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@pid", c.Id));
-        //    }
-        //}
-        //protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    City c = entity as City;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"Insert INTO  CityTbl (CityName) VALUES (@cName)";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.CityName));
-        //    }
-        //}
-
-        //protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
-        //{
-        //    City c = entity as City;
-        //    if (c != null)
-        //    {
-        //        string sqlStr = $"UPDATE CityTbl  SET CityName=@cName WHERE ID=@id";
-
-        //        command.CommandText = sqlStr;
-        //        command.Parameters.Add(new OleDbParameter("@cName", c.CityName));
-        //        command.Parameters.Add(new OleDbParameter("@id", c.Id));
-        //    }
-        //}
     }
 }

@@ -23,13 +23,13 @@ namespace ApiInterface
         }
 
 
-        public async Task<string> GetVideoPicByte64(int id)
+        public async Task<string> GetVideoPicByte64(int id) // פעולה שמחזירה את התמונה של הסרטון בפורמט Base64
         {
             string st = null;
-            string URI = $"{uri}/api/Select/VideoPicSelector64Byte/{id}";
-            HttpResponseMessage response = await client.GetAsync(URI);
+            string URI = $"{uri}/api/Select/VideoPicSelector64Byte/{id}"; 
+            HttpResponseMessage response = await client.GetAsync(URI); // שליחת בקשה לשרת לקבלת התמונה בפורמט Base64
 
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode) // בדיקה אם הבקשה הצליחה
             {
                 string json = await response.Content.ReadAsStringAsync();
                 try
@@ -52,7 +52,6 @@ namespace ApiInterface
         }
         public async Task<int> DeleteVideo(int id)
         {
-            // תיקון: החלפתי את DeleteUser ב-DeleteVideo כפי שמופיע ב-Swagger שלך
             var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteVideo/VideoDeleter/{id}");
 
             if (response.IsSuccessStatusCode)
@@ -64,7 +63,6 @@ namespace ApiInterface
         }
         public async Task<int> InsertVideo(Video video)
         {
-            // תשתמש רק בנתיב הסופי שמופיע ב-Swagger (החלק שאחרי ה-Port)
             var response = await client.PostAsJsonAsync(uri + "/api/Insert/AddVideo/api/Insert/VideoInserter", video);
             if (!response.IsSuccessStatusCode)
             {
@@ -86,7 +84,6 @@ namespace ApiInterface
         {
             try
             {
-                // שימוש בנתיב המדויק מה-Swagger ששלחת בתמונה
                 var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteGenre/DeleteGenre/{id}");
 
                 if (response.IsSuccessStatusCode)
@@ -96,7 +93,6 @@ namespace ApiInterface
                 }
                 else
                 {
-                    // הדפסה לדיבוג במידה וזה עדיין נכשל
                     System.Diagnostics.Debug.WriteLine($"API Error Genre: {response.StatusCode}");
                     return 0;
                 }
@@ -121,19 +117,16 @@ namespace ApiInterface
         {
             return (await client.PutAsJsonAsync(uri + "/api/Update/GenreUpdater", Genre)).IsSuccessStatusCode ? 1 : 0;
         }
-        // פונקציה אחת רק בשביל להביא את הרשימה (GET)
         public async Task<UserList> GetAllUsers()
         {
             return await client.GetFromJsonAsync<UserList>(uri + "/api/Select/UserSelector");
         }
 
-        // פונקציה נפרדת רק בשביל המחיקה (DELETE)
         public async Task<int> DeleteUser(int id)
         {
             try
             {
-                // הכתובת המדויקת שעבדה ב-Swagger שלך:
-                // שים לב לתוספת של DeleteUser באמצע הנתיב
+                
                 var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteUser/UserDeleter/{id}");
 
                 if (response.IsSuccessStatusCode)
@@ -183,7 +176,7 @@ namespace ApiInterface
             try
             {
                 var result = await client.GetFromJsonAsync<VideoReviewList>($"{uri}/api/Select/VideoReviewSelector");
-                return result ?? new VideoReviewList(); // מחזיר רשימה ריקה במקום null אם אין נתונים
+                return result ?? new VideoReviewList(); // אם השרת מחזיר null, נחזיר רשימה ריקה במקום
             }
             catch (Exception ex)
             {
@@ -208,7 +201,6 @@ namespace ApiInterface
         {
             try
             {
-                // שיניתי את המילה DeleteReview השנייה ל-Review כדי להתאים ל-Swagger
                 var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteReview/Review/{reviewId}");
 
                 if (response.IsSuccessStatusCode)
@@ -255,15 +247,12 @@ namespace ApiInterface
         public async Task<bool> IsUserPremium(int id)
         {
             UserPremiumList premiumList = await GetAllUserPremiums();
-            // בדיקה אם קיים אובייקט ברשימה שה-ID שלו תואם ל-ID שקיבלנו
             return premiumList != null && premiumList.Any(p => p.Id == id);
         }
 
 
         public async Task<bool> CheckIfUserLikedVideo(int userId, int videoId)
         {
-            // אנחנו מושכים את כל הלייקים ובודקים אם קיים שילוב של המשתמש והסרט
-            // זו הדרך הכי בטוחה אם עדיין אין לך Endpoint ייעודי בשרת
             MyLikesList allLikes = await GetAllLikes();
             return allLikes != null && allLikes.Any(l => l.UserId.Id == userId && l.VideoId.Id == videoId);
         }
@@ -294,15 +283,15 @@ namespace ApiInterface
         {
             try
             {
-                // 1. נשלוף את כל הביקורות הקיימות במערכת
+                // שליפת כל הביקורות הקיימות במערכת
                 VideoReviewList allReviews = await GetAllVideoReviews();
 
                 if (allReviews == null) return 1; // אם אין ביקורות בכלל, הכל תקין
 
-                // 2. נסנן רק את הביקורות ששייכות למשתמש הספציפי
+                //  סינון הביקורות ששייכות למשתמש הספציפי
                 var userReviews = allReviews.Where(r => r.WhoUpdatedTheReview != null && r.WhoUpdatedTheReview.Id == userId).ToList();
 
-                // 3. נמחק ביקורת ביקורת
+                //  מחיקת כל הביקורות של המשתמש הזה אחת אחת
                 foreach (var review in userReviews)
                 {
                     await DeleteVideoReview(review.Id);
@@ -320,7 +309,6 @@ namespace ApiInterface
         {
             try
             {
-                // שינוי הכתובת לפי ה-Swagger ששלחת: הוספת MoveMovies פעמיים
                 var response = await client.PutAsync($"{uri}/api/Update/MoveMovies/MoveMovies/{fromId}/{toId}", null);
 
                 if (response.IsSuccessStatusCode)
@@ -342,7 +330,6 @@ namespace ApiInterface
         {
             try
             {
-                // שימוש בנתיב הכפול לפי ה-Swagger: api/Update/UpdateMovieGenre/UpdateMovieGenre
                 var response = await client.PutAsync($"{uri}/api/Update/UpdateMovieGenre/UpdateMovieGenre/{videoId}/{newGenreId}", null);
 
                 if (response.IsSuccessStatusCode)
@@ -361,7 +348,6 @@ namespace ApiInterface
 
         public async Task<bool> RemoveLike(int userId, int videoId)
         {
-            // כאן צריך למצוא את ה-ID של הלייק הספציפי כדי למחוק אותו
             MyLikesList allLikes = await GetAllLikes();
             var likeToDelete = allLikes?.FirstOrDefault(l => l.UserId.Id == userId && l.VideoId.Id == videoId);
 
@@ -403,8 +389,6 @@ namespace ApiInterface
 
         public async Task<bool> CheckIfUserInWatchList(int userId, int videoId)
         {
-            // כאן צריכה להיות הקריאה לשרת שלך (Web API או ישירות ל-DB)
-            // דוגמה:
             var allWatchList = await GetAllMyWatchList();
             return allWatchList.Any(w => w.UserId.Id == userId && w.VideoId.Id == videoId);
         }
@@ -413,14 +397,11 @@ namespace ApiInterface
         {
             try
             {
-                // 1. קודם כל נמצא את ה-ID של הרשומה ב-WatchList כדי שנוכל למחוק אותה
-                var allWatchList = await GetAllMyWatchList();
+                var allWatchList = await GetAllMyWatchList(); // שליפת כל פריטי ה-WatchList הקיימים במערכת
                 var itemToDelete = allWatchList?.FirstOrDefault(w => w.UserId.Id == userId && w.VideoId.Id == videoId);
 
                 if (itemToDelete != null)
                 {
-                    // 2. נשתמש בנתיב המלא ובפונקציית המחיקה הקיימת שכבר עובדת לך (DeleteMyWatchList המקורית שמקבלת ID)
-                    // שימוש ב-uri ובנתיב ה-api המלא כפי שמופיע בשאר הפונקציות שלך
                     string fullUrl = $"{uri}/api/Delete/MyWatchListDeleter/{itemToDelete.Id}";
                     var response = await client.DeleteAsync(fullUrl);
 
@@ -439,7 +420,7 @@ namespace ApiInterface
         {
             try
             {
-                // 1. מחיקת כל ה-VideoReview של הסרטון הזה
+                // מחיקת כל הביקורות של הסרטון הזה
                 var allReviews = await GetAllVideoReviews();
                 var targetReviews = allReviews.Where(r => r.WhichVideoDidTheUserReview?.Id == videoId).ToList();
                 foreach (var review in targetReviews)
@@ -447,7 +428,7 @@ namespace ApiInterface
                     await DeleteVideoReview(review.Id);
                 }
 
-                // 2. מחיקת כל הלייקים (MyLikes) של הסרטון הזה
+                // מחיקת כל הלייקים של הסרטון הזה
                 var allLikes = await GetAllLikes();
                 var targetLikes = allLikes.Where(l => l.VideoId?.Id == videoId).ToList();
                 foreach (var like in targetLikes)
@@ -463,7 +444,7 @@ namespace ApiInterface
         {
             try
             {
-                // 1. ניקוי ביקורות
+                //  ניקוי ביקורות
                 var reviews = await GetAllVideoReviews();
                 if (reviews != null)
                 {
@@ -471,7 +452,7 @@ namespace ApiInterface
                         await DeleteVideoReview(r.Id);
                 }
 
-                // 2. ניקוי לייקים
+                //  ניקוי לייקים
                 var likes = await GetAllLikes();
                 if (likes != null)
                 {
@@ -481,7 +462,7 @@ namespace ApiInterface
 
 
 
-                // 4. ניקוי פרימיום
+                //  ניקוי פרימיום
                 await DeleteUserPremium(userId);
 
                 return 1;

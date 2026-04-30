@@ -12,7 +12,7 @@ namespace ViewModel
     {
         public UserList SelectAll()
         {
-            command.CommandText = $"SELECT * FROM [User]";
+            command.CommandText = $"SELECT * FROM [User]"; // סוגריים מרובעות כי שם הטבלה הוא מילה שמורה בSQL
             UserList groupList = new UserList(base.Select());
             return groupList;
         }
@@ -22,7 +22,7 @@ namespace ViewModel
             User u = entity as User;
             if (u != null)
             {
-                u.Id = (int)reader["ID"]; // עדכון ה-ID ישר מהרידר
+                u.Id = (int)reader["ID"]; 
                 u.UserName = reader["UserName"].ToString();
                 u.Pass = reader["Pass"].ToString();
                 u.Mail = reader["Mail"].ToString();
@@ -66,7 +66,7 @@ namespace ViewModel
             if (u != null)
             {
                 cmd.CommandText = "INSERT INTO [User] ([UserName], [DateOfBirth], [Mail], [Pass], [Name], [IsAdmin], [IsPremium]) " +
-                                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                                 "VALUES (?, ?, ?, ?, ?, ?, ?)"; // שימוש ב-? במקום שמות הפרמטרים
 
                 cmd.Parameters.Clear();
                 cmd.Parameters.Add("@UserName", OleDbType.VarWChar).Value = u.UserName;
