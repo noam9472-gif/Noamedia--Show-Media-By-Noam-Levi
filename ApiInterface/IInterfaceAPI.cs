@@ -1,61 +1,78 @@
-﻿using Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Model;
+using ViewModel;
 
 namespace ApiInterface
 {
     public interface IInterfaceAPI
     {
-        public Task<VideoList> GetAllVideos();
-        public Task<int> DeleteVideo(int id);
-        public Task<int> InsertVideo(Video video);
-        public Task<int> UpdateVideo(Video video);
-
-        public Task<UserList> GetAllUsers();
-        public Task<int> DeleteUser(int id);
-        public Task<int> InsertUser(User user);
-        public Task<int> UpdateUser(User user);
-
-        public Task<GenreList> GetAllGenres();
-        public Task<int> DeleteGenre(int id);
-        public Task<int> InsertGenre(Genre genre);
-        public Task<int> UpdateGenre(Genre genre);
-
-        public Task<VideoReviewList> GetAllVideoReviews();
-        public Task<int> DeleteVideoReview(int id);
-        public Task<int> InsertVideoReview(VideoReview videoReview);
-        public Task<int> UpdateVideoReview(VideoReview videoReview);
-        public Task<List<VideoReview>> GetReviewsByVideoId(int videoId);
-
-        public Task<UserPremiumList> GetAllUserPremiums();
-        public Task<int> DeleteUserPremium(int id);
-        public Task<int> InsertUserPremium(UserPremium userPremium);
-        public Task<int> UpdateUserPremium(UserPremium userPremium);
-
-       
+        // Videos
+        Task<VideoList> GetAllVideos();
         Task<string> GetVideoPicByte64(int id);
+        Task<int> InsertVideo(Video video);
+        Task<int> UpdateVideo(Video video);
+        Task<int> DeleteVideo(int id);
+        Task<int> ForceClearVideo(int videoId);
+
+        // Genres
+        Task<GenreList> GetAllGenres();
+        Task<int> InsertGenre(Genre genre);
+        Task<int> UpdateGenre(Genre genre);
+        Task<int> DeleteGenre(int id);
+        Task<int> MoveMoviesBetweenGenres(int fromId, int toId);
+        Task<int> UpdateSingleMovieGenre(int videoId, int newGenreId);
+
+        // Users
+        Task<UserList> GetAllUsers();
+        Task<int> InsertUser(User user);
+        Task<int> UpdateUser(User user);
+        Task<int> DeleteUser(int id);
+        Task<int> ForceClearUserEverything(int userId);
+
+        // --- Premium Logic ---
+        // הפעולה החדשה לשדרוג מהיר דרך ה-bool
+        Task<int> UpgradeUserToPremium(int userId);
+
+        // הפעולות שאתה צריך למסך מנהל (עבודה עם ישות UserPremium)
+        Task<int> InsertUserPremium(UserPremium userPremium);
+        Task<int> UpdateUserPremium(UserPremium userPremium);
+
+        Task<bool> IsUserPremium(int id);
+        Task<UserPremiumList> GetAllUserPremiums();
+        Task<int> DeleteUserPremium(int id);
+
+        // Reviews
+        Task<VideoReviewList> GetAllVideoReviews();
+        Task<List<VideoReview>> GetReviewsByVideoId(int videoId);
+        Task<int> InsertVideoReview(VideoReview videoReview);
+        Task<int> UpdateVideoReview(VideoReview videoReview);
+        Task<int> DeleteVideoReview(int reviewId);
+        Task<int> DeleteAllReviewsByUser(int userId);
+        Task<int> GetCommentsCountByUser(int userId);
+
+        // Likes
         Task<MyLikesList> GetAllLikes();
         Task<int> InsertLike(MyLikes like);
         Task<int> DeleteLike(int id);
         Task<bool> CheckIfUserLikedVideo(int userId, int videoId);
-        Task<bool> AddLike(MyLikes like);
+        Task<bool> AddLike(MyLikes likes);
         Task<bool> RemoveLike(int userId, int videoId);
+        Task<int> GetLikesCountByUser(int userId);
 
+        // WatchList
         Task<MyWatchListList> GetAllMyWatchList();
-        Task<int> InsertMyWatchList(MyWatchList myWatch);
+        Task<int> InsertMyWatchList(MyWatchList item);
         Task<int> DeleteMyWatchList(int id);
-
-        Task<MyHistoryList> GetAllMyHistory();
-        Task<int> InsertMyHistory(MyHistory myHistory);
-        Task<int> DeleteMyHistory(int id);
-        // בדיקה אם הסרט כבר נמצא ברשימה - מחזיר אמת או שקר
         Task<bool> CheckIfUserInWatchList(int userId, int videoId);
-
-        // מחיקת סרט מהרשימה לפי מזהה משתמש ומזהה סרט
         Task<bool> DeleteMyWatchList(int userId, int videoId);
 
+        // History
+        Task<MyHistoryList> GetAllMyHistory();
+        Task<int> InsertMyHistory(MyHistory item);
+        Task<int> DeleteMyHistory(int id);
     }
 }

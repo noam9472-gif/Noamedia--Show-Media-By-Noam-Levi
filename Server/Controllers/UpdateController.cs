@@ -69,5 +69,39 @@ namespace Movies.API.Controllers
                 return 0;
             }
         }
+
+        
+        [HttpPut("{userId}")]
+        [ActionName("UpdateToPremium")]
+        public int UpdateToPremium(int userId)
+        {
+            try
+            {
+                // 1. עדכון שדה IsPremium בטבלת המשתמשים (כדי שהמנהל יראה 1)
+                UserDB udb = new UserDB();
+                udb.UpdateByCondition("User", "IsPremium = 1", $"id = {userId}");
+
+                // 2. טיפול בטבלת UserPremium עבור דף הכניסה
+                UserPremiumDB updb = new UserPremiumDB();
+
+                // שימוש בפונקציה החדשה שכתבנו כדי לבדוק אם הוא כבר פרימיום
+                UserPremiumList existing = updb.SelectByCondition($"id = {userId}");
+
+                if (existing == null || existing.Count == 0)
+                {
+                    // אם הוא לא קיים בטבלה, נוסיף אותו
+                    UserPremium up = new UserPremium { Id = userId };
+                    updb.Insert(up);
+                    return updb.SaveChanges();
+                }
+
+                return 1; // המשתמש כבר קיים בטבלה, אז מחזירים הצלחה
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Server Error: " + ex.Message);
+                return 0;
+            }
+        }
     }
 }

@@ -85,6 +85,33 @@ namespace ViewModel
                 updated.Add(new ChangeEntity(this.CreateUpdatedSQL, entity));
             }
         }
+        public UserPremiumList SelectByCondition(string condition)
+        {
+            UserPremiumList list = new UserPremiumList();
+            try
+            {
+                // יצירת פקודת SQL דינמית לפי התנאי שנשלח
+                command.CommandText = $"SELECT * FROM UserPremium WHERE {condition}";
+                connection.Open();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    UserPremium up = new UserPremium { Id = (int)reader["id"] };
+                    list.Add(up);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("SelectByCondition Error: " + ex.Message);
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                    connection.Close();
+            }
+            return list;
+        }
+
         public override void Insert(BaseEntity entity)
         {
             BaseEntity reqEntity = this.NewEntity();

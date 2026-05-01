@@ -2,18 +2,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using ViewModel;
+using System;
+using System.Linq;
 
 namespace Movies.API.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")] // נתיב בסיסי: api/Insert
     [ApiController]
     public class InsertController : Controller
     {
-
-        // GET: InsertController
-        [HttpPost]
-        [Route("api/Insert/VideoInserter")]
-        public int AddVideo(Video v)
+        [HttpPost("VideoInserter")]
+        public int AddVideo([FromBody] Video v)
         {
             try
             {
@@ -23,74 +22,73 @@ namespace Movies.API.Controllers
             }
             catch (Exception ex)
             {
-                // זה ידפיס לך בדיוק למה הסרט לא נשמר
                 Console.WriteLine("INSERT ERROR: " + ex.Message);
-                if (ex.InnerException != null) Console.WriteLine("INNER: " + ex.InnerException.Message);
                 return 0;
             }
         }
-        [HttpPost]
-        [ActionName("UserInserter")]
+
+        [HttpPost("UserInserter")]
         public int InsertUser([FromBody] User user)
         {
             UserDB udb = new UserDB();
             udb.Insert(user);
-            int x = udb.SaveChanges();
-            return x;
+            return udb.SaveChanges();
         }
-        [HttpPost]
-        [ActionName("InserterGenre")]
+
+        [HttpPost("InserterGenre")]
         public int InsertGenre([FromBody] Genre genre)
         {
             GenreDB gdb = new GenreDB();
             gdb.Insert(genre);
-            int x = gdb.SaveChanges();
-            return x;
+            return gdb.SaveChanges();
         }
-        [HttpPost]
-        [ActionName("VideoReviewInserter")]
+
+        [HttpPost("VideoReviewInserter")]
         public int InsertVideoReview([FromBody] VideoReview videoReview)
         {
             VideoReviewDB vrdb = new VideoReviewDB();
             vrdb.Insert(videoReview);
-            int x = vrdb.SaveChanges();
-            return x;
+            return vrdb.SaveChanges();
         }
-        [HttpPost]
-        [ActionName("UserPremiumInserter")]
-        public int InsertUserPremium([FromBody] UserPremium userPremium)
+
+        [HttpPost("UserPremiumInserter")]
+        public int UserPremiumInserter([FromBody] UserPremium up)
         {
-            UserPremiumDB updb = new UserPremiumDB();
-            updb.Insert(userPremium);
-            int x = updb.SaveChanges();
-            return x;
+            try
+            {
+                UserPremiumDB updb = new UserPremiumDB();
+                updb.Insert(up);
+                return updb.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return 0;
+            }
         }
-        [HttpPost]
-        [ActionName("MyLikesInserter")]
+
+        [HttpPost("MyLikesInserter")]
         public int InsertMyLike([FromBody] MyLikes like)
         {
             MyLikesDB mldb = new MyLikesDB();
             mldb.Insert(like);
-            int x = mldb.SaveChanges();
-            return x;
+            return mldb.SaveChanges();
         }
-        [HttpPost]
-        [ActionName("MyWatchListInserter")]
+
+        [HttpPost("MyWatchListInserter")]
         public int InsertMyWatchList([FromBody] MyWatchList item)
         {
             MyWatchListDB mwldb = new MyWatchListDB();
             mwldb.Insert(item);
-            int x = mwldb.SaveChanges();
-            return x;
+            return mwldb.SaveChanges();
         }
-        [HttpPost]
-        [ActionName("MyHistoryInserter")]
+
+        [HttpPost("MyHistoryInserter")]
         public int InsertMyHistory([FromBody] MyHistory item)
         {
             MyHistoryDB mhdb = new MyHistoryDB();
             mhdb.Insert(item);
-            int x = mhdb.SaveChanges();
-            return x;
+            return mhdb.SaveChanges();
         }
     }
 }
