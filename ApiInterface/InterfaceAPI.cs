@@ -19,13 +19,9 @@ namespace ApiInterface
 
         public InterfaceAPI()
         {
-            // ודא שהפורט הזה תואם למה שרץ בדפדפן ב-Swagger
             uri = "http://localhost:5113";
             client = new HttpClient();
         }
-
-        // --- Select Operations ---
-
         public async Task<string> GetVideoPicByte64(int id)
         {
             string st = null;
@@ -96,8 +92,6 @@ namespace ApiInterface
             return await client.GetFromJsonAsync<MyHistoryList>(uri + "/api/Select/MyHistorySelector");
         }
 
-        // --- Insert Operations (Updated according to Swagger) ---
-
         public async Task<int> InsertVideo(Video video)
         {
             var response = await client.PostAsJsonAsync($"{uri}/api/Insert/VideoInserter", video);
@@ -146,8 +140,6 @@ namespace ApiInterface
             return response.IsSuccessStatusCode ? 1 : 0;
         }
 
-        // --- Update Operations ---
-
         public async Task<int> UpdateVideo(Video video)
         {
             var response = await client.PutAsJsonAsync(uri + "/api/Update/VideoUpdater", video);
@@ -178,11 +170,10 @@ namespace ApiInterface
             return response.IsSuccessStatusCode ? 1 : 0;
         }
 
-        public async Task<int> UpdateSingleMovieGenre(int videoId, int newGenreId)
+        public async Task<int> UpdateSingleMovieGenre(int videoId, int newGenreId) // פונקציה שמקבלת מזהה של סרט ומזהה של ז'אנר חדש ומעדכנת את הז'אנר של הסרט לז'אנר החדש
         {
             try
             {
-                // המילה UpdateMovieGenre מופיעה פעמיים כפי שמופיע ב-Swagger שלך
                 var response = await client.PutAsync($"{uri}/api/Update/UpdateMovieGenre/UpdateMovieGenre/{videoId}/{newGenreId}", null);
                 if (response.IsSuccessStatusCode)
                 {
@@ -198,7 +189,7 @@ namespace ApiInterface
             }
         }
 
-        public async Task<int> MoveMoviesBetweenGenres(int fromId, int toId)
+        public async Task<int> MoveMoviesBetweenGenres(int fromId, int toId) // פונקציה שמקבלת שני מזהים של ז'אנרים ומעבירה את כל הסרטים מהז'אנר הישן לחדש
         {
             try
             {
@@ -223,25 +214,18 @@ namespace ApiInterface
             {
                 var response = await client.PutAsync($"{uri}/api/Update/UpdateToPremium/{userId}", null);
 
-                // אם השרת החזיר סטטוס הצלחה (200-299)
-                if (response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode) // אם הבקשה הצליחה, נניח שהשדרוג בוצע בהצלחה
                 {
-                    // אנחנו מחזירים 1 ישירות כי הפעולה בשרת בוצעה
                     return 1;
                 }
-
-                // אם הסטטוס הוא לא הצלחה (למשל 404 או 500)
-                return 0;
+                return 0; // אם הבקשה לא הצליחה, נחזיר 0
             }
-            catch (Exception ex)
+            catch (Exception ex) // טיפול בשגיאות אפשריות
             {
                 System.Diagnostics.Debug.WriteLine("Upgrade Error: " + ex.Message);
                 return 0;
             }
         }
-
-        // --- Delete Operations ---
-
         public async Task<int> DeleteVideo(int id)
         {
             var response = await client.DeleteAsync($"{uri}/api/Delete/DeleteVideo/VideoDeleter/{id}");
@@ -334,8 +318,6 @@ namespace ApiInterface
             return response.IsSuccessStatusCode ? 1 : 0;
         }
 
-        // --- Logic & Helper Functions ---
-
         public async Task<List<VideoReview>> GetReviewsByVideoId(int videoId)
         {
             VideoReviewList allReviews = await GetAllVideoReviews();
@@ -400,14 +382,14 @@ namespace ApiInterface
             }
         }
 
-        public async Task<int> GetCommentsCountByUser(int userId)
+        public async Task<int> GetCommentsCountByUser(int userId) // פונקציה שמחזירה כמה ביקורות משתמש נתון כתב על מנת שיקבל פרימיום
         {
             var allReviews = await GetAllVideoReviews();
             if (allReviews == null) return 0;
             return allReviews.Count(r => r.WhoUpdatedTheReview != null && r.WhoUpdatedTheReview.Id == userId);
         }
 
-        public async Task<int> GetLikesCountByUser(int userId)
+        public async Task<int> GetLikesCountByUser(int userId) // פונקציה שמחזירה כמה לייקים משתמש נתון נתן על מנת שיקבל פרימיום
         {
             var allLikes = await GetAllLikes();
             if (allLikes == null) return 0;

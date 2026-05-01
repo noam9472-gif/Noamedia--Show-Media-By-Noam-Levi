@@ -32,12 +32,9 @@ namespace ApiInterface
         Task<int> UpdateUser(User user);
         Task<int> DeleteUser(int id);
         Task<int> ForceClearUserEverything(int userId);
-
-        // --- Premium Logic ---
-        // הפעולה החדשה לשדרוג מהיר דרך ה-bool
+        // פעולה שמעדכנת את הסטטוס של המשתמש לפרימיום
         Task<int> UpgradeUserToPremium(int userId);
 
-        // הפעולות שאתה צריך למסך מנהל (עבודה עם ישות UserPremium)
         Task<int> InsertUserPremium(UserPremium userPremium);
         Task<int> UpdateUserPremium(UserPremium userPremium);
 

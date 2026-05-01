@@ -73,18 +73,15 @@ namespace Movies.API.Controllers
         
         [HttpPut("{userId}")]
         [ActionName("UpdateToPremium")]
-        public int UpdateToPremium(int userId)
+        public int UpdateToPremium(int userId) // פעולה שמעדכנת משתמש לקבוצת פרימיום ומוסיפה לטבלה של משתמשי הפרימיום אם לא קיים
         {
             try
             {
-                // 1. עדכון שדה IsPremium בטבלת המשתמשים (כדי שהמנהל יראה 1)
                 UserDB udb = new UserDB();
                 udb.UpdateByCondition("User", "IsPremium = 1", $"id = {userId}");
 
-                // 2. טיפול בטבלת UserPremium עבור דף הכניסה
                 UserPremiumDB updb = new UserPremiumDB();
 
-                // שימוש בפונקציה החדשה שכתבנו כדי לבדוק אם הוא כבר פרימיום
                 UserPremiumList existing = updb.SelectByCondition($"id = {userId}");
 
                 if (existing == null || existing.Count == 0)

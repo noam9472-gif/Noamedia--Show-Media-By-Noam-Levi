@@ -85,12 +85,11 @@ namespace ViewModel
                 updated.Add(new ChangeEntity(this.CreateUpdatedSQL, entity));
             }
         }
-        public UserPremiumList SelectByCondition(string condition)
+        public UserPremiumList SelectByCondition(string condition) // פעולה זו מחזירה רשימה של כל הפרימיום שעומדים בתנאי מסוים
         {
             UserPremiumList list = new UserPremiumList();
             try
             {
-                // יצירת פקודת SQL דינמית לפי התנאי שנשלח
                 command.CommandText = $"SELECT * FROM UserPremium WHERE {condition}";
                 connection.Open();
                 reader = command.ExecuteReader();

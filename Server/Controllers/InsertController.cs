@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Movies.API.Controllers
 {
-    [Route("api/[controller]")] // נתיב בסיסי: api/Insert
+    [Route("api/[controller]")] 
     [ApiController]
     public class InsertController : Controller
     {
